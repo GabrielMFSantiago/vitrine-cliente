@@ -1,0 +1,1 @@
+ C:\\Users\\User\\Downloads\\segundo\ bimestre\\app-versoes\\vitrine_clienteV1.1\\novo-2\\vitrine-cliente\\.dart_tool\\flutter_build\\ec93b59055db7524edcd0e202671248c\\native_assets.yaml: 
