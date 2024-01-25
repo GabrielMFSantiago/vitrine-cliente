@@ -58,16 +58,15 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: ListView.builder(
-  itemCount: usuariosLoja.length,
-  itemBuilder: (context, index) {
-    return ListTile(
-      title: Text(usuariosLoja[index]['nomeLoja'] ?? ''),
-      
-      leading: Image.network(usuariosLoja[index]['profileImage'] as String),
-      // Adicione aqui o código para exibir os usuários loja
-    );
-  },
-),
+        itemCount: usuariosLoja.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(usuariosLoja[index]['nomeLoja'] ?? ''),
+            subtitle: Text(usuariosLoja[index]['img'] ?? ''),
+            // Adicione aqui o código para exibir os usuários loja
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.black,
         onPressed: () {
