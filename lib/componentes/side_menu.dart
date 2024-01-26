@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import 'package:vitrine/database.dart';
+import 'package:vitrine/database.dart';
 import 'side_menu_title.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -20,7 +20,7 @@ class _SideMenuState extends State<SideMenu> {
   String? _imagePath;
   String? _clienteNome;
   late String _userId;
-  // Database? db;
+   Database? db;
 
   @override
   void initState() {
@@ -193,7 +193,7 @@ class _SideMenuState extends State<SideMenu> {
                       .copyWith(color: Colors.white70),
                 ),
               ),
-              // SideMenuTitle(userid, db: db),   //PRECISA APARECER AS OPÇÕES NO MENU(side_menu_title.dart)
+               SideMenuTitle(userid, db: db),   
             ],
           ),
         ),

@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Cliente {
-  User? userscl = FirebaseAuth.instance.currentUser;
+  User? userscl;
   String nome;
   String telefone;
+
   Cliente(
     this.nome,
     this.telefone,
-    this.userscl,
-  );
+    User? userscl, 
+  ) : this.userscl = userscl;
 }

@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:vitrine/database.dart';
+import 'package:vitrine/widgets/infocliente_page_old-2.dart';
 //import 'package:vitrine/widgets/infocliente_page.dart';
 import 'package:vitrine/widgets/suporte_page.dart';
 import 'package:flutter/services.dart';
@@ -7,14 +9,14 @@ import 'package:flutter/services.dart';
 class SideMenuTitle extends StatelessWidget {
 
   String? userId;
- /*                                   //PRECISA DESSE BLOCO PARA APARECER AS OPÇÕES NO MENU(side_menu.dart)
+                                    //PRECISA DESSE BLOCO PARA APARECER AS OPÇÕES NO MENU(side_menu.dart)
   SideMenuTitle(String? userid, {
     Key? key,
     this.db
   }) : super(key: key);         
   
   Database? db;
-  */   
+    
 
   
   @override
@@ -110,13 +112,14 @@ class SideMenuTitle extends StatelessWidget {
         ),
 
         // ----------------------------------
-        /*
+        
         ListTile(
           onTap: () async {
             User? user = FirebaseAuth.instance.currentUser;
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => InfoClientePage(userId: user?.uid,),
+                builder: (context) => InfoClientePage(userId: user?.uid, db: Database(), ClienteSelecionada: null),
+
               ),
             );
           },
@@ -128,7 +131,7 @@ class SideMenuTitle extends StatelessWidget {
             ),
           ),
           title: const Text(
-            "Informações da Loja",
+            "Minhas Informações",
             style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
           ),
         ),
@@ -140,7 +143,7 @@ class SideMenuTitle extends StatelessWidget {
             height: 1,
           ),
         ),
-        */
+        
         // ----------------------------------
         ListTile(
           onTap: () {

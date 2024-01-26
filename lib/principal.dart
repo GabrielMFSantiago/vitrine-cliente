@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:vitrine/componentes/side_menu.dart';
+import 'package:vitrine/componentes/side_menu_title.dart';
+import 'firebase_options.dart';
 import 'database.dart';
 import 'dart:async';
 
@@ -28,8 +31,14 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+StreamController<List<Map<String, dynamic>>?> searchResultsController =
+    StreamController<List<Map<String, dynamic>>?>.broadcast();
+
 class _MyHomePageState extends State<MyHomePage> {
   late Database db;
+  //List docs = [];
+  //List<bool> selectedItems = List.generate(0, (_) => false);
+  TextEditingController _filtragemController = TextEditingController();
   List<Map<String, dynamic>> usuariosLoja = [];
 
   @override
@@ -48,33 +57,112 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+
+ /*
+
+  wvoid _filtrandoTudo(String query) {
+    setState(() {
+      if (query.isNotEmpty) {
+        docs = docs.here((contact) {
+          String nomeItem = contact['nomeitem'].toLowerCase();
+          String cor = contact['cor'].toLowerCase();
+          String tamanho = contact['tamanho'].toLowerCase();
+          String descricao = contact['descricao'].toLowerCase();
+          String preco = contact['preco'].toLowerCase();
+          return nomeItem.contains(query.toLowerCase()) ||
+              cor.contains(query.toLowerCase()) ||
+              tamanho.contains(query.toLowerCase()) ||
+              descricao.contains(query.toLowerCase()) ||
+              preco.contains(query.toLowerCase());
+        }).toList();
+      } else {
+        db.listar().then((value) => {
+              setState(() {
+                docs = value; // Retorna todos os registros
+                selectedItems =
+                    List.generate(docs.length, (_) => false);
+              })
+            });
+      }
+      selectedItems = List.generate(docs.length, (_) => false);
+    });
+  }
+
+  */
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 0, 0, 0),
+        elevation: 0,
+        leading: IconButton(
+          icon: Image.asset("images/btnopcao.png"),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const SideMenu(),
+              ),
+            );
+          },
+        ),
         title: Text(
           widget.title,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white, // Cor do título da barra de aplicativos
+          ),
         ),
       ),
-      body: ListView.builder(
-        itemCount: usuariosLoja.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(usuariosLoja[index]['nomeLoja'] ?? ''),
-            subtitle: Text(usuariosLoja[index]['img'] ?? ''),
-            // Adicione aqui o código para exibir os usuários loja
-          );
-        },
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: _filtragemController,
+             // onChanged: _filtrandoTudo, // Atualiza a lista de registros de acordo com o termo de pesquisa
+              decoration: InputDecoration(
+                hintText: 'Pesquisar',
+                prefixIcon: Icon(Icons.search),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+                          
+              itemCount: usuariosLoja.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(usuariosLoja[index]['nomeLoja'] ?? ''),
+                    subtitle: Text(usuariosLoja[index]['img'] ?? ''),
+                    // Adicione aqui o código para exibir os usuários loja
+                  );
+                },             
+            ),
+          ),
+        ],
       ),
+
+
+
+        //boão flutuante padrão
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromARGB(255, 0, 0, 0),
         onPressed: () {
-          // Adicione aqui o código para lidar com a ação do botão flutuante
+          Map<String, String> mapNulo() => {"nomeitem": "", "img": ""};
+      //    _abrirFormulario(mapNulo());
         },
         tooltip: 'Novo Item',
-        child: const Icon(Icons.add, color: Colors.white),
+        //child: const Icon(Icons.add, color: Colors.white),
+        child: Image.asset(
+                "images/btndiamante.png",
+              ),
       ),
+      
     );
   }
 }
