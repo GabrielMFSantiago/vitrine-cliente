@@ -1,15 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vitrine/database.dart';
-import 'package:vitrine/widgets/infocliente_page_old-2.dart';
-//import 'package:vitrine/widgets/infocliente_page.dart';
 import 'package:vitrine/widgets/suporte_page.dart';
 import 'package:flutter/services.dart';
-//import 'package:vitrine/database.dart';
+
 class SideMenuTitle extends StatelessWidget {
 
-  String? userId;
-                                    //PRECISA DESSE BLOCO PARA APARECER AS OPÇÕES NO MENU(side_menu.dart)
+  String? userId;                                
   SideMenuTitle(String? userid, {
     Key? key,
     this.db
@@ -113,38 +110,6 @@ class SideMenuTitle extends StatelessWidget {
 
         // ----------------------------------
         
-        ListTile(
-          onTap: () async {
-            User? user = FirebaseAuth.instance.currentUser;
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => InfoClientePage(userId: user?.uid, db: Database(), ClienteSelecionada: null),
-
-              ),
-            );
-          },
-          leading: SizedBox(
-            height: 34,
-            width: 34,
-            child: Image.asset(
-              "images/btninfo.png",
-            ),
-          ),
-          title: const Text(
-            "Minhas Informações",
-            style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-          ),
-        ),
-
-        const Padding(
-          padding: EdgeInsets.only(left: 20),
-          child: Divider(
-            color: Colors.white12,
-            height: 1,
-          ),
-        ),
-        
-        // ----------------------------------
         ListTile(
           onTap: () {
             Navigator.of(context).push(
