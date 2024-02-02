@@ -3,7 +3,6 @@ import 'package:vitrine/componentes/side_menu.dart';
 import 'package:vitrine/pages/loading_page.dart';
 import 'package:vitrine/widgets/login_page.dart';
 import 'package:vitrine/widgets/perfil_page.dart';
-import 'package:vitrine/widgets/produto_page.dart';
 import 'package:vitrine/widgets/suporte_page.dart';
 
 // APP DE CLIENTE - Vitrine
@@ -59,7 +58,7 @@ class MyApp extends StatelessWidget {
           bodyText1: const TextStyle(fontSize: 20),
         ),
       ),
-      home: const LoginPage(),
+      home: const PerfilPage(),
     );
   }
 }
