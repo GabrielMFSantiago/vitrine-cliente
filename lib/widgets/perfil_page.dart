@@ -1,13 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PerfilPage extends StatefulWidget {
-  const PerfilPage({Key? key}) : super(key: key);
+  final String nomeLoja;
+  final String imageUrl; // Adicionando imageUrl como parâmetro
+
+  const PerfilPage({Key? key, required this.nomeLoja, required this.imageUrl})
+      : super(key: key);
 
   @override
   State<PerfilPage> createState() => _PerfilPageInfo();
 }
 
 class _PerfilPageInfo extends State<PerfilPage> {
+  late String telefone = '';
+  late String endereco = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchLojaData();
+  }
+
+  Future<void> _fetchLojaData() async {
+    try {
+      // Substitua 'ID_DO_USUARIO' pelo ID do documento da loja
+      DocumentSnapshot lojaSnapshot = await FirebaseFirestore.instance
+          .collection('usersadm')
+          .doc('ID_DO_USUARIO')
+          .get();
+      Map<String, dynamic> lojaData =
+          lojaSnapshot.data() as Map<String, dynamic>;
+      setState(() {
+        telefone = lojaData['telefone'] ?? '';
+        endereco = lojaData['endereco'] ?? '';
+      });
+    } catch (e) {
+      print('Erro ao buscar dados da loja: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,14 +74,15 @@ class _PerfilPageInfo extends State<PerfilPage> {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
-                                  image: AssetImage("images/background5.jpg"),
+                                  image: NetworkImage(widget
+                                      .imageUrl), // Usando imageUrl para carregar a imagem
                                   fit: BoxFit.cover,
                                 ),
                               ),
                             ),
                             SizedBox(height: 10),
                             Text(
-                              "Loja Teste",
+                              widget.nomeLoja, // Usando nomeLoja do widget
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
@@ -57,7 +90,7 @@ class _PerfilPageInfo extends State<PerfilPage> {
                             ),
                             buildInfoRowWithDivider(
                               "Telefone:",
-                              "123456789",
+                              telefone,
                               icon: Image.asset(
                                 "images/iconewhatsapp.png",
                                 height: 24,
@@ -66,7 +99,7 @@ class _PerfilPageInfo extends State<PerfilPage> {
                             ),
                             buildInfoRowWithDivider(
                               "Endereço:",
-                              "Rua Teste, 123",
+                              endereco,
                               icon: Image.asset(
                                 "images/iconegps.png",
                                 height: 24,
@@ -184,20 +217,18 @@ class _PerfilPageInfo extends State<PerfilPage> {
           ),
         ),
       ),
-       
-     floatingActionButton: Align(
-    alignment: Alignment(1.0, -0.8),
-    
-    child: FloatingActionButton(
-      backgroundColor: Color.fromARGB(255, 0, 0, 0),
-        onPressed: () {       
-      //    _favoritar perfil
-        },
-        child: Image.asset(
-                "images/btndiamante.png",
-              ),
+      floatingActionButton: Align(
+        alignment: Alignment(1.0, -0.8),
+        child: FloatingActionButton(
+          backgroundColor: Color.fromARGB(255, 0, 0, 0),
+          onPressed: () {
+            //    _favoritar perfil
+          },
+          child: Image.asset(
+            "images/btndiamante.png",
+          ),
+        ),
       ),
-     ),
     );
   }
 
@@ -278,7 +309,5 @@ class _PerfilPageInfo extends State<PerfilPage> {
         SizedBox(height: 16),
       ],
     );
-   
   }
-  
 }

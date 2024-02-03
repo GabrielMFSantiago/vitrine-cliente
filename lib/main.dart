@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
           bodyText1: const TextStyle(fontSize: 20),
         ),
       ),
-      home: const PerfilPage(),
+      home: const LoginPage(),
     );
   }
 }

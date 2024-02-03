@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:vitrine/componentes/side_menu.dart';
 import 'package:vitrine/componentes/side_menu_title.dart';
+import 'package:vitrine/widgets/perfil_page.dart';
 import 'firebase_options.dart';
 import 'database.dart';
 import 'dart:async';
@@ -13,11 +14,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Vitrine Principal',
+      title: 'Tela Principal',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Sua Vitrine está aqui!'),
+      home: const MyHomePage(title: 'Seu produto está aqui!'),
     );
   }
 }
@@ -131,19 +132,42 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-                          
-              itemCount: usuariosLoja.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(usuariosLoja[index]['nomeLoja'] ?? ''),
-                    subtitle: Text(usuariosLoja[index]['img'] ?? ''),
-                    // Adicione aqui o código para exibir os usuários loja
-                  );
-                },             
-            ),
-          ),
+      Expanded(
+        child: ListView.builder(
+          itemCount: usuariosLoja.length,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                ListTile(
+                 onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PerfilPage(
+                          nomeLoja: usuariosLoja[index]['nomeLoja'] ?? '',
+                          imageUrl: usuariosLoja[index]['img'] ?? '',
+                        ),
+                      ), 
+                    );
+                  },
+
+                  leading: CircleAvatar(
+                    radius: 40,
+                    backgroundImage: NetworkImage(usuariosLoja[index]['img'] ?? ''),
+                  ),
+                  title: Text(usuariosLoja[index]['nomeLoja'] ?? ''),
+                ),
+                const Divider(
+                  color: Colors.grey,
+                  thickness: 0.5,
+                  height: 25,
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+
         ],
       ),
 

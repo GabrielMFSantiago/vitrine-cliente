@@ -1,1 +1,0 @@
- C:\\Users\\Danillo\\Documents\\GitHub\\vitrine-cliente\\.dart_tool\\flutter_build\\419e811393545ce9e953e84f272a5799\\native_assets.yaml: 
