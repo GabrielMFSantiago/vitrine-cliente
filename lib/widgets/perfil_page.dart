@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PerfilPage extends StatefulWidget {
   final String nomeLoja;
-  final String imageUrl; // Adicionando imageUrl como parâmetro
+  final String imageUrl;
 
   const PerfilPage({Key? key, required this.nomeLoja, required this.imageUrl})
       : super(key: key);
@@ -24,17 +24,37 @@ class _PerfilPageInfo extends State<PerfilPage> {
 
   Future<void> _fetchLojaData() async {
     try {
-      // Substitua 'ID_DO_USUARIO' pelo ID do documento da loja
-      DocumentSnapshot lojaSnapshot = await FirebaseFirestore.instance
+      print('Nome da loja: ${widget.nomeLoja}');  // Adiciona log
+
+      // Consultando a coleção de mapeamento para obter o ID do documento correspondente ao nome da loja
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('usersadm')
-          .doc('ID_DO_USUARIO')
+          .where('nome', isEqualTo: widget.nomeLoja)
+          .limit(1)
           .get();
-      Map<String, dynamic> lojaData =
-          lojaSnapshot.data() as Map<String, dynamic>;
-      setState(() {
-        telefone = lojaData['telefone'] ?? '';
-        endereco = lojaData['endereco'] ?? '';
-      });
+
+      if (querySnapshot.docs.isNotEmpty) {
+        // Se encontrar um documento correspondente, obtenha o ID do documento
+        String idDocumento = querySnapshot.docs.first.id;
+
+        print('ID do documento: $idDocumento');  // Adiciona log
+
+        // Usando o ID de documento correspondente para buscar os dados da loja no Firestore
+        DocumentSnapshot lojaSnapshot = await FirebaseFirestore.instance
+            .collection('usersadm')
+            .doc(idDocumento)
+            .get();
+
+        Map<String, dynamic> lojaData = lojaSnapshot.data() as Map<String, dynamic>;
+        print('Dados da loja: $lojaData');  // Adiciona log
+
+        setState(() {
+          telefone = lojaData['telefone'] ?? '';
+          endereco = lojaData['endereco'] ?? '';
+        });
+      } else {
+        print('Nenhum documento encontrado para ${widget.nomeLoja}');
+      }
     } catch (e) {
       print('Erro ao buscar dados da loja: $e');
     }
@@ -74,15 +94,14 @@ class _PerfilPageInfo extends State<PerfilPage> {
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 image: DecorationImage(
-                                  image: NetworkImage(widget
-                                      .imageUrl), // Usando imageUrl para carregar a imagem
+                                  image: NetworkImage(widget.imageUrl),
                                   fit: BoxFit.cover,
                                 ),
                               ),
                             ),
                             SizedBox(height: 10),
                             Text(
-                              widget.nomeLoja, // Usando nomeLoja do widget
+                              widget.nomeLoja,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
@@ -222,7 +241,7 @@ class _PerfilPageInfo extends State<PerfilPage> {
         child: FloatingActionButton(
           backgroundColor: Color.fromARGB(255, 0, 0, 0),
           onPressed: () {
-            //    _favoritar perfil
+            // _favoritar perfil
           },
           child: Image.asset(
             "images/btndiamante.png",
