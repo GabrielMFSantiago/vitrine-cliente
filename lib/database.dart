@@ -1,12 +1,42 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:vitrine/Cliente.dart';
+import 'package:vitrine/reserva.dart';
 
 class Database {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   void initialize() {
     _firestore = FirebaseFirestore.instance;
+  }
+
+  Future<void> incluireservas(Reserva c) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      final reservaData = {
+        "nomeloja": c.nomeloja,
+        "endereco": c.endereco,
+        "telefone": c.telefone,
+        "nomeitem": c.nomeitem,
+        "cor": c.cor,
+        "tamanho": c.tamanho,
+        "descricao": c.descricao,
+        "preco": c.preco,
+        "img": c.img,
+        "userId": user?.uid, // Adiciona o ID do usuário que está fazendo a reserva
+      };
+
+      await _firestore
+          .collection('userscliente')
+          .doc(user?.uid)
+          .collection('Reservas')
+          .add(reservaData);
+
+      print('Reserva adicionada com sucesso');
+    } catch (e) {
+      print('Erro ao adicionar reserva: $e');
+    }
   }
 
   Future<List<Map<String, dynamic>>> listarUsuariosLoja() async {
@@ -31,32 +61,54 @@ class Database {
   }
 
   Future<void> editarCliente(String id, Cliente j) async {
-  try {
-    DocumentReference clienteRef = _firestore
-        .collection('userscliente')
-        .doc(id); // Use o ID do cliente, não o ID do usuário
+    try {
+      DocumentReference clienteRef = _firestore
+          .collection('userscliente')
+          .doc(id); // Use o ID do cliente, não o ID do usuário
 
-    DocumentSnapshot clienteSnapshot = await clienteRef.get();
-    if (clienteSnapshot.exists) {
-      final Cliente = <String, dynamic>{
-        "nome": j.nome,
-        "telefone": j.telefone,
-        "userCliente": j.userscl,
-      };
+      DocumentSnapshot clienteSnapshot = await clienteRef.get();
+      if (clienteSnapshot.exists) {
+        final Cliente = <String, dynamic>{
+          "nome": j.nome,
+          "telefone": j.telefone,
+          "userCliente": j.userscl,
+        };
 
-      await clienteRef.update(Cliente);
-      print('Cliente $id atualizado com sucesso');
-    } else {
-      print('Cliente $id não atualizado');
+        await clienteRef.update(Cliente);
+        print('Cliente $id atualizado com sucesso');
+      } else {
+        print('Cliente $id não atualizado');
+      }
+    } catch (e) {
+      print('Erro ao atualizar o Cliente: $e');
     }
+  }
+
+ Future<List<Map<String, dynamic>>> getReservas() async { // Corrigido para retornar uma lista de mapas
+  try {
+    User? user = FirebaseAuth.instance.currentUser;
+    QuerySnapshot querySnapshot = await _firestore
+        .collection('userscliente')
+        .doc(user?.uid)
+        .collection('Reservas')
+        .get();
+
+    List<Map<String, dynamic>> reservas = querySnapshot.docs.map((doc) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      return data;
+    }).toList();
+
+    print('Reservas obtidas com sucesso: $reservas');
+
+    return reservas;
   } catch (e) {
-    print('Erro ao atualizar o Cliente: $e');
+    print('Erro ao obter reservas: $e');
+    return [];
   }
 }
 
-
-//Excluir itens do adm loja
- Future<void> excluir(String id) async {
+  //Excluir itens do adm loja
+  Future<void> excluir(String id) async {
     User? user = FirebaseAuth.instance.currentUser;
     try {
       DocumentReference productRef = _firestore
@@ -73,11 +125,12 @@ class Database {
     }
   }
 
-
-
   Future<Map<String, dynamic>?> getClienteInfo(String userId) async {
     try {
-      DocumentSnapshot doc = await FirebaseFirestore.instance.collection('userscliente').doc(userId).get();
+      DocumentSnapshot doc = await FirebaseFirestore.instance
+          .collection('userscliente')
+          .doc(userId)
+          .get();
       return doc.data() as Map<String, dynamic>?; // Retorna as informações do cliente
     } catch (e) {
       print('Erro ao buscar informações do cliente: $e');

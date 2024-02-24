@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
+import 'package:vitrine/widgets/reservas_page.dart'; // Importe a tela de ReservasPage
 
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
@@ -20,13 +21,17 @@ class _SideMenuState extends State<SideMenu> {
   String? _imagePath;
   String? _clienteNome;
   late String _userId;
-   Database? db;
+  Database? db;
+  List<Map<String, dynamic>> _reservas = []; // Adicione uma lista de reservas aqui
 
-  @override
-  void initState() {
-    super.initState();
-    _initUserId();
-  }
+ @override
+void initState() {
+  super.initState();
+  _initUserId();
+  _loadReservas(); // Carregar reservas quando o usuário estiver autenticado
+}
+
+
 
   Future<void> _initUserId() async {
     User? user = FirebaseAuth.instance.currentUser;
@@ -36,6 +41,7 @@ class _SideMenuState extends State<SideMenu> {
         _userId = user.uid;
         _loadClienteNome();
         _loadImagePath();
+        _loadReservas(); // Carregue as reservas quando o usuário estiver autenticado
       });
     } else {
       print('Usuário não autenticado');
@@ -135,10 +141,31 @@ class _SideMenuState extends State<SideMenu> {
     );
   }
 
+  Future<void> _loadReservas() async {
+    CollectionReference reservasRef =
+        FirebaseFirestore.instance.collection('reservas');
+
+    try {
+      QuerySnapshot querySnapshot = await reservasRef
+          .where('userId', isEqualTo: _userId)
+          .get();
+
+      List<Map<String, dynamic>> reservas = querySnapshot.docs
+          .map((doc) => doc.data() as Map<String, dynamic>)
+          .toList();
+
+      setState(() {
+        _reservas = reservas;
+      });
+    } catch (e) {
+      print('Erro ao carregar reservas: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
-    String? userid = user?.uid;
+    String? userId = user?.uid;
 
     return Scaffold(
       body: Container(
@@ -193,7 +220,12 @@ class _SideMenuState extends State<SideMenu> {
                       .copyWith(color: Colors.white70),
                 ),
               ),
-               SideMenuTitle(userid, db: db),   
+             SideMenuTitle(
+                userId: userId,
+                db: db,
+                reservas: _reservas, 
+              ),
+
             ],
           ),
         ),
