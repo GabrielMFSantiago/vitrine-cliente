@@ -6,6 +6,8 @@ import 'package:vitrine/widgets/perfil_page.dart';
 import 'firebase_options.dart';
 import 'database.dart';
 import 'dart:async';
+import 'favoritas.dart';
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -118,7 +120,16 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.white, // Cor do título da barra de aplicativos
           ),
         ),
+         actions: [
+          IconButton(
+            onPressed: () {
+              // Navegar para a tela do mapa ou realizar ação desejada
+            },
+            icon: Image.asset("images/mapa.png"),
+          ),
+        ],
       ),
+      
       body: Column(
         children: [
           Padding(
@@ -175,17 +186,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
         //boão flutuante padrão
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color.fromARGB(255, 0, 0, 0),
-        onPressed: () {
-          Map<String, String> mapNulo() => {"nomeitem": "", "img": ""};
-      //    _abrirFormulario(mapNulo());
-        },
-        tooltip: 'Novo Item',
-        //child: const Icon(Icons.add, color: Colors.white),
-        child: Image.asset(
-                "images/btndiamante.png",
-              ),
-      ),
+  backgroundColor: Color.fromARGB(255, 0, 0, 0),
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => FavoritasPage(lojaFavoritada: null)),
+    );
+  },
+  tooltip: 'Favoritas',
+  child: Image.asset(
+    "images/btndiamante.png",
+  ),
+),
+
+
+
       
     );
   }

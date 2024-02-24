@@ -1,5 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:vitrine/favoritas.dart';
+import 'package:vitrine/reserva.dart';
+import 'package:vitrine/widgets/reservas_page.dart';
+import 'package:vitrine/database.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 class PerfilPage extends StatefulWidget {
   final String nomeLoja;
@@ -9,12 +16,14 @@ class PerfilPage extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<PerfilPage> createState() => _PerfilPageInfo();
+  State<PerfilPage> createState() => _PerfilPageInfoState();
 }
 
-class _PerfilPageInfo extends State<PerfilPage> {
+class _PerfilPageInfoState extends State<PerfilPage> {
   late String telefone = '';
   late String endereco = '';
+  List<Map<String, dynamic>> produtos = [];
+  List<Map<String, dynamic>> reservas = [];
 
   @override
   void initState() {
@@ -24,9 +33,8 @@ class _PerfilPageInfo extends State<PerfilPage> {
 
   Future<void> _fetchLojaData() async {
     try {
-      print('Nome da loja: ${widget.nomeLoja}');  // Adiciona log
+      print('Nome da loja: ${widget.nomeLoja}');
 
-      // Consultando a coleção de mapeamento para obter o ID do documento correspondente ao nome da loja
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('usersadm')
           .where('nome', isEqualTo: widget.nomeLoja)
@@ -34,23 +42,34 @@ class _PerfilPageInfo extends State<PerfilPage> {
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
-        // Se encontrar um documento correspondente, obtenha o ID do documento
         String idDocumento = querySnapshot.docs.first.id;
 
-        print('ID do documento: $idDocumento');  // Adiciona log
+        print('ID do documento: $idDocumento');
 
-        // Usando o ID de documento correspondente para buscar os dados da loja no Firestore
         DocumentSnapshot lojaSnapshot = await FirebaseFirestore.instance
             .collection('usersadm')
             .doc(idDocumento)
             .get();
 
-        Map<String, dynamic> lojaData = lojaSnapshot.data() as Map<String, dynamic>;
-        print('Dados da loja: $lojaData');  // Adiciona log
+        Map<String, dynamic> lojaData =
+            lojaSnapshot.data() as Map<String, dynamic>;
+
+        QuerySnapshot produtosQuerySnapshot = await FirebaseFirestore.instance
+            .collection('usersadm')
+            .doc(idDocumento)
+            .collection('Items')
+            .get();
+
+        List<Map<String, dynamic>> produtos = produtosQuerySnapshot.docs
+            .map((doc) => doc.data() as Map<String, dynamic>)
+            .toList();
+
+        print('Produtos da loja: $produtos');
 
         setState(() {
           telefone = lojaData['telefone'] ?? '';
           endereco = lojaData['endereco'] ?? '';
+          this.produtos = produtos;
         });
       } else {
         print('Nenhum documento encontrado para ${widget.nomeLoja}');
@@ -58,6 +77,23 @@ class _PerfilPageInfo extends State<PerfilPage> {
     } catch (e) {
       print('Erro ao buscar dados da loja: $e');
     }
+  }
+
+ void _favoritarLoja() {
+    // Adicione aqui a lógica para favoritar a loja
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FavoritasPage(
+          lojaFavoritada: {
+            'nomeLoja': widget.nomeLoja,
+            'endereco': endereco,
+            'imageUrl': widget.imageUrl,
+            // Adicione aqui outros dados da loja que deseja passar para FavoritasPage
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -107,15 +143,33 @@ class _PerfilPageInfo extends State<PerfilPage> {
                                 fontSize: 24,
                               ),
                             ),
-                            buildInfoRowWithDivider(
-                              "Telefone:",
-                              telefone,
-                              icon: Image.asset(
-                                "images/iconewhatsapp.png",
-                                height: 24,
-                                width: 24,
-                              ),
-                            ),
+                   buildInfoRowWithDivider(
+  "Telefone:",
+  telefone,
+  icon: Positioned(
+    top: 0,
+    right: 0,
+    child: GestureDetector(
+      onTap: () async {
+        final url = 'https://wa.me/$telefone';
+        if (await canLaunch(url)) {
+          await launch(url);
+        } else {
+          throw 'Não foi possível abrir $url';
+        }
+      },
+      child: Image.asset(
+        "images/iconewhatsapp.png",
+        height: 24,
+        width: 24,
+      ),
+    ),
+  ),
+),
+
+
+
+                            
                             buildInfoRowWithDivider(
                               "Endereço:",
                               endereco,
@@ -133,14 +187,13 @@ class _PerfilPageInfo extends State<PerfilPage> {
                 ),
                 Expanded(
                   child: Container(
-                    margin:
-                        EdgeInsets.only(top: 0, bottom: 16, left: 6, right: 6),
+                    margin: EdgeInsets.only(left: 6, right: 6),
                     child: SingleChildScrollView(
                       child: Column(
-                        children: [
-                          Container(
+                        children: produtos.map((produto) {
+                          return Container(
                             width: double.infinity,
-                            margin: EdgeInsets.symmetric(horizontal: 6),
+                            margin: EdgeInsets.only(top: 6),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.0),
                               boxShadow: [
@@ -152,81 +205,154 @@ class _PerfilPageInfo extends State<PerfilPage> {
                               ],
                               color: Colors.white,
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(height: 10),
-                                  Image.asset(
-                                    "images/LogoVitrine2.png",
-                                    height: 100,
-                                    width: 100,
-                                  ),
-                                  Text(
-                                    "Teste",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 24,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10),
                                     ),
+                                    child: produto['img'] != null
+                                        ? Image.network(
+                                            produto['img'],
+                                            fit: BoxFit.cover,
+                                          )
+                                        : SizedBox.shrink(),
                                   ),
-                                  SizedBox(height: 10),
-                                  Image.asset(
-                                    "images/LogoVitrine2.png",
-                                    height: 100,
-                                    width: 100,
-                                  ),
-                                  Text(
-                                    "Teste",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 24,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 1),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  produto['nomeitem'] != null &&
+                                                          produto['nomeitem']
+                                                              .isNotEmpty
+                                                      ? produto['nomeitem']
+                                                      : 'Nome não disponível',
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 33,
+                                                    fontFamily: 'Work Sans',
+                                                    fontStyle: FontStyle.italic,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        produto['descricao'] != null &&
+                                                produto['descricao'].isNotEmpty
+                                            ? "Descrição: ${produto['descricao']}"
+                                            : 'Descrição não disponível',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      Text(
+                                        produto['tamanho'] != null &&
+                                                produto['tamanho'].isNotEmpty
+                                            ? "Tamanho: ${produto['tamanho']}"
+                                            : 'Tamanho não disponível',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      Text(
+                                        produto['cor'] != null &&
+                                                produto['cor'].isNotEmpty
+                                            ? "Cor: ${produto['cor']}"
+                                            : 'Cor não disponível',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                     Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          produto['preco'] != null && produto['preco'].isNotEmpty
+                                              ? "Valor: ${produto['preco']}"
+                                              : 'Preço não disponível',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 25,
+                                            fontFamily: 'Work Sans',
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () async {
+                                            final nomeProduto = produto['nomeitem'] ?? 'Produto não disponível';
+                                            final mensagem =
+                                                Uri.encodeFull('Gostei do(a) $nomeProduto e gostaria de reservá-lo!');
+                                            final url = 'https://wa.me/$telefone?text=$mensagem';
+                                            if (await canLaunch(url)) {
+                                              await launch(url);
+                                            } else {
+                                              throw 'Não foi possível abrir $url';
+                                            }
+                                          },
+                                          child: Stack(
+                                            alignment: Alignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.favorite,
+                                                color: Colors.black,
+                                              ),
+                                              Column(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                children: [
+                                                  SizedBox(height: 30), // Ajuste o espaçamento vertical aqui
+                                                  Text(
+                                                    'Reservar',
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+
+
+                                      ],
                                     ),
+
+                                    ],
                                   ),
-                                  SizedBox(height: 10),
-                                  Image.asset(
-                                    "images/LogoVitrine2.png",
-                                    height: 100,
-                                    width: 100,
-                                  ),
-                                  Text(
-                                    "Teste",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 24,
-                                    ),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Image.asset(
-                                    "images/LogoVitrine2.png",
-                                    height: 100,
-                                    width: 100,
-                                  ),
-                                  Text(
-                                    "Teste",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 24,
-                                    ),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Image.asset(
-                                    "images/LogoVitrine2.png",
-                                    height: 100,
-                                    width: 100,
-                                  ),
-                                  Text(
-                                    "Teste",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 24,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
+                          );
+                        }).toList(),
                       ),
                     ),
                   ),
@@ -236,13 +362,11 @@ class _PerfilPageInfo extends State<PerfilPage> {
           ),
         ),
       ),
-      floatingActionButton: Align(
+     floatingActionButton: Align(
         alignment: Alignment(1.0, -0.8),
         child: FloatingActionButton(
           backgroundColor: Color.fromARGB(255, 0, 0, 0),
-          onPressed: () {
-            // _favoritar perfil
-          },
+          onPressed: _favoritarLoja,
           child: Image.asset(
             "images/btndiamante.png",
           ),
@@ -250,6 +374,7 @@ class _PerfilPageInfo extends State<PerfilPage> {
       ),
     );
   }
+
 
   Widget buildInfoRowWithIcon(String label, String value, {Widget? icon}) {
     return Row(

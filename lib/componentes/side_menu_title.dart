@@ -1,21 +1,21 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vitrine/database.dart';
-import 'package:vitrine/widgets/suporte_page.dart';
+import 'package:vitrine/widgets/reservas_page.dart';
+import 'package:vitrine/widgets/suporte_page.dart'; 
 import 'package:flutter/services.dart';
 
 class SideMenuTitle extends StatelessWidget {
+  final String? userId;
+  final Database? db;
+  final List<Map<String, dynamic>> reservas; 
 
-  String? userId;                                
-  SideMenuTitle(String? userid, {
+  SideMenuTitle({
     Key? key,
-    this.db
-  }) : super(key: key);         
-  
-  Database? db;
-    
+    this.userId,
+    this.db,
+    required this.reservas,
+  }) : super(key: key);
 
-  
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,7 +27,6 @@ class SideMenuTitle extends StatelessWidget {
             height: 1,
           ),
         ),
-        // ----------------------------------
         GestureDetector(
           child: ListTile(
             onTap: () {
@@ -46,7 +45,6 @@ class SideMenuTitle extends StatelessWidget {
             ),
           ),
         ),
-
         const Padding(
           padding: EdgeInsets.only(left: 20),
           child: Divider(
@@ -54,8 +52,6 @@ class SideMenuTitle extends StatelessWidget {
             height: 1,
           ),
         ),
-        // ----------------------------------
-
         ListTile(
           onTap: () {},
           leading: SizedBox(
@@ -77,10 +73,23 @@ class SideMenuTitle extends StatelessWidget {
             height: 1,
           ),
         ),
-        // ----------------------------------
-
-        ListTile(
-          onTap: () {},
+         ListTile(
+          onTap: () async {
+            if (db != null) {
+              List<Map<String, dynamic>>? reservas = await db?.getReservas();
+              if (reservas != null) {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ReservasPage(reservas: reservas),
+                  ),
+                );
+              } else {
+                print("Erro ao obter as reservas");
+              }
+            } else {
+              print("É nulo !");
+            }
+          },
           leading: SizedBox(
             height: 34,
             width: 34,
@@ -93,28 +102,19 @@ class SideMenuTitle extends StatelessWidget {
             style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.only(left: 20),
-          child: Divider(
-            color: Colors.white12,
-            height: 1,
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.only(left: 20),
-          child: Divider(
-            color: Colors.white12,
-            height: 1,
-          ),
-        ),
 
-        // ----------------------------------
-        
+        const Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: Divider(
+            color: Colors.white12,
+            height: 1,
+          ),
+        ),
         ListTile(
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => const SuportePage(),
+                builder: (context) => SuportePage(), // Use SuportePage aqui
               ),
             );
           },
@@ -137,7 +137,6 @@ class SideMenuTitle extends StatelessWidget {
             height: 1,
           ),
         ),
-        // ----------------------------------
         GestureDetector(
           onTap: () {
             showDialog(
@@ -148,13 +147,13 @@ class SideMenuTitle extends StatelessWidget {
                   actions: <Widget>[
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pop(); 
+                        Navigator.of(context).pop();
                       },
                       child: const Text("Cancelar"),
                     ),
                     TextButton(
                       onPressed: () {
-                        SystemNavigator.pop(); // Fechar completamente o aplicativo
+                        SystemNavigator.pop();
                       },
                       child: const Text("Sair"),
                     ),
