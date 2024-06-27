@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vitrine/database.dart';
-import 'package:vitrine/widgets/reservas_page.dart';
-import 'package:vitrine/widgets/suporte_page.dart'; 
+import 'package:vitrine/pages/reservas_page.dart';
+import 'package:vitrine/pages/suporte_page.dart'; 
 import 'package:flutter/services.dart';
 
 class SideMenuTitle extends StatelessWidget {
