@@ -1,0 +1,33 @@
+[debug] [2024-06-27T23:51:21.396Z] ----------------------------------------------------------------------
+[debug] [2024-06-27T23:51:21.405Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js apps:create android vitrine (android) --package-name=com --json --project=vitrine-db-e4b2d
+[debug] [2024-06-27T23:51:21.407Z] CLI Version:   10.9.2
+[debug] [2024-06-27T23:51:21.408Z] Platform:      win32
+[debug] [2024-06-27T23:51:21.408Z] Node Version:  v20.15.0
+[debug] [2024-06-27T23:51:21.408Z] Time:          Thu Jun 27 2024 20:51:21 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2024-06-27T23:51:21.409Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-06-27T23:51:21.431Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-06-27T23:51:21.432Z] > authorizing via signed-in user (gsantiagoinfo@gmail.com)
+[info] Create your ANDROID app in project vitrine-db-e4b2d:
+[debug] [2024-06-27T23:51:21.442Z] >>> HTTP REQUEST POST https://firebase.googleapis.com/v1beta1/projects/vitrine-db-e4b2d/androidApps  
+ {"displayName":"vitrine (android)","packageName":"com"}
+[debug] [2024-06-27T23:51:21.857Z] <<< HTTP RESPONSE 400 {"vary":"X-Origin, Referer, Origin,Accept-Encoding","content-type":"application/json; charset=UTF-8","date":"Thu, 27 Jun 2024 23:51:23 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2024-06-27T23:51:21.858Z] <<< HTTP RESPONSE BODY {"error":{"code":400,"message":"Request contains an invalid argument.","status":"INVALID_ARGUMENT"}}
+[debug] [2024-06-27T23:51:21.861Z] HTTP Error: 400, Request contains an invalid argument.
+[debug] [2024-06-27T23:51:22.044Z] FirebaseError: HTTP Error: 400, Request contains an invalid argument.
+    at module.exports (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:47:12)
+    at Request._callback (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\api.js:41:35)
+    at self.callback (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:185:22)
+    at Request.emit (node:events:519:28)
+    at Request.emit (node:domain:488:12)
+    at Request.<anonymous> (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1154:10)
+    at Request.emit (node:events:519:28)
+    at Request.emit (node:domain:488:12)
+    at IncomingMessage.<anonymous> (C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1076:12)
+    at Object.onceWrapper (node:events:633:28)
+    at IncomingMessage.emit (node:events:531:35)
+    at IncomingMessage.emit (node:domain:488:12)
+    at endReadableNT (node:internal/streams/readable:1696:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
+[error] 
+[error] Error: Failed to create Android app for project vitrine-db-e4b2d. See firebase-debug.log for more info.
