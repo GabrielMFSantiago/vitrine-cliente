@@ -13,23 +13,23 @@
 13         to allow setting breakpoints, to provide hot reload, etc.
 14    -->
 15    <uses-permission android:name="android.permission.INTERNET" />
-15-->C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\android\app\src\main\AndroidManifest.xml:3:1-63
-15-->C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\android\app\src\main\AndroidManifest.xml:3:18-60
+15-->C:\Users\User\Documents\GitHub\vitrine-cliente\android\app\src\main\AndroidManifest.xml:3:1-63
+15-->C:\Users\User\Documents\GitHub\vitrine-cliente\android\app\src\main\AndroidManifest.xml:3:18-60
 16    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-16-->[:file_picker] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-80
-16-->[:file_picker] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-77
+16-->[:file_picker] C:\Users\User\Documents\GitHub\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-80
+16-->[:file_picker] C:\Users\User\Documents\GitHub\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-77
 17
 18    <queries>
-18-->[:file_picker] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:11:5-17:15
+18-->[:file_picker] C:\Users\User\Documents\GitHub\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:11:5-17:15
 19        <intent>
-19-->[:file_picker] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:12:9-16:18
+19-->[:file_picker] C:\Users\User\Documents\GitHub\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:12:9-16:18
 20            <action android:name="android.intent.action.GET_CONTENT" />
-20-->[:file_picker] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-72
-20-->[:file_picker] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:13:21-69
+20-->[:file_picker] C:\Users\User\Documents\GitHub\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-72
+20-->[:file_picker] C:\Users\User\Documents\GitHub\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:13:21-69
 21
 22            <data android:mimeType="*/*" />
-22-->[:file_picker] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-44
-22-->[:file_picker] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:15:19-41
+22-->[:file_picker] C:\Users\User\Documents\GitHub\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-44
+22-->[:file_picker] C:\Users\User\Documents\GitHub\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:15:19-41
 23        </intent>
 24    </queries> <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
 25    <!-- <uses-sdk android:minSdkVersion="14" /> -->
@@ -92,37 +92,37 @@
 72            android:value="2" />
 73
 74        <service
-74-->[:cloud_firestore] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-14:19
+74-->[:cloud_firestore] C:\Users\User\Documents\GitHub\vitrine-cliente\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-14:19
 75            android:name="com.google.firebase.components.ComponentDiscoveryService"
-75-->[:cloud_firestore] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:10:18-89
+75-->[:cloud_firestore] C:\Users\User\Documents\GitHub\vitrine-cliente\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:10:18-89
 76            android:directBootAware="true"
 76-->[com.google.firebase:firebase-common:20.4.2] C:\Users\User\.gradle\caches\transforms-3\8e8f2f99ff6ad02cb30db25119ddf6b9\transformed\jetified-firebase-common-20.4.2\AndroidManifest.xml:32:13-43
 77            android:exported="false" >
 77-->[com.google.firebase:firebase-firestore:24.10.1] C:\Users\User\.gradle\caches\transforms-3\979ed49b273cc62d88c11bc85026b622\transformed\jetified-firebase-firestore-24.10.1\AndroidManifest.xml:16:13-37
 78            <meta-data
-78-->[:cloud_firestore] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-13:85
+78-->[:cloud_firestore] C:\Users\User\Documents\GitHub\vitrine-cliente\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-13:85
 79                android:name="com.google.firebase.components:io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestoreRegistrar"
-79-->[:cloud_firestore] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:12:17-134
+79-->[:cloud_firestore] C:\Users\User\Documents\GitHub\vitrine-cliente\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:12:17-134
 80                android:value="com.google.firebase.components.ComponentRegistrar" />
-80-->[:cloud_firestore] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:13:17-82
+80-->[:cloud_firestore] C:\Users\User\Documents\GitHub\vitrine-cliente\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:13:17-82
 81            <meta-data
-81-->[:firebase_auth] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-13:85
+81-->[:firebase_auth] C:\Users\User\Documents\GitHub\vitrine-cliente\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-13:85
 82                android:name="com.google.firebase.components:io.flutter.plugins.firebase.auth.FlutterFirebaseAuthRegistrar"
-82-->[:firebase_auth] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:12:17-124
+82-->[:firebase_auth] C:\Users\User\Documents\GitHub\vitrine-cliente\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:12:17-124
 83                android:value="com.google.firebase.components.ComponentRegistrar" />
-83-->[:firebase_auth] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:13:17-82
+83-->[:firebase_auth] C:\Users\User\Documents\GitHub\vitrine-cliente\build\firebase_auth\intermediates\merged_manifest\debug\AndroidManifest.xml:13:17-82
 84            <meta-data
-84-->[:firebase_storage] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-13:85
+84-->[:firebase_storage] C:\Users\User\Documents\GitHub\vitrine-cliente\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-13:85
 85                android:name="com.google.firebase.components:io.flutter.plugins.firebase.storage.FlutterFirebaseAppRegistrar"
-85-->[:firebase_storage] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:12:17-126
+85-->[:firebase_storage] C:\Users\User\Documents\GitHub\vitrine-cliente\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:12:17-126
 86                android:value="com.google.firebase.components.ComponentRegistrar" />
-86-->[:firebase_storage] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:13:17-82
+86-->[:firebase_storage] C:\Users\User\Documents\GitHub\vitrine-cliente\build\firebase_storage\intermediates\merged_manifest\debug\AndroidManifest.xml:13:17-82
 87            <meta-data
-87-->[:firebase_core] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-13:85
+87-->[:firebase_core] C:\Users\User\Documents\GitHub\vitrine-cliente\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-13:85
 88                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
-88-->[:firebase_core] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:12:17-124
+88-->[:firebase_core] C:\Users\User\Documents\GitHub\vitrine-cliente\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:12:17-124
 89                android:value="com.google.firebase.components.ComponentRegistrar" />
-89-->[:firebase_core] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:13:17-82
+89-->[:firebase_core] C:\Users\User\Documents\GitHub\vitrine-cliente\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:13:17-82
 90            <meta-data
 90-->[com.google.firebase:firebase-firestore:24.10.1] C:\Users\User\.gradle\caches\transforms-3\979ed49b273cc62d88c11bc85026b622\transformed\jetified-firebase-firestore-24.10.1\AndroidManifest.xml:17:13-19:85
 91                android:name="com.google.firebase.components:com.google.firebase.firestore.FirebaseFirestoreKtxRegistrar"
@@ -180,31 +180,31 @@
 117        </service>
 118
 119        <provider
-119-->[:image_picker_android] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
+119-->[:image_picker_android] C:\Users\User\Documents\GitHub\vitrine-cliente\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
 120            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-120-->[:image_picker_android] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-82
+120-->[:image_picker_android] C:\Users\User\Documents\GitHub\vitrine-cliente\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-82
 121            android:authorities="com.cliente.vitrine.flutter.image_provider"
-121-->[:image_picker_android] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-74
+121-->[:image_picker_android] C:\Users\User\Documents\GitHub\vitrine-cliente\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-74
 122            android:exported="false"
-122-->[:image_picker_android] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
+122-->[:image_picker_android] C:\Users\User\Documents\GitHub\vitrine-cliente\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
 123            android:grantUriPermissions="true" >
-123-->[:image_picker_android] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
+123-->[:image_picker_android] C:\Users\User\Documents\GitHub\vitrine-cliente\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
 124            <meta-data
-124-->[:image_picker_android] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:75
+124-->[:image_picker_android] C:\Users\User\Documents\GitHub\vitrine-cliente\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:75
 125                android:name="android.support.FILE_PROVIDER_PATHS"
-125-->[:image_picker_android] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
+125-->[:image_picker_android] C:\Users\User\Documents\GitHub\vitrine-cliente\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
 126                android:resource="@xml/flutter_image_picker_file_paths" />
-126-->[:image_picker_android] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-72
+126-->[:image_picker_android] C:\Users\User\Documents\GitHub\vitrine-cliente\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-72
 127        </provider>
 128
 129        <activity
-129-->[:url_launcher_android] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-13:74
+129-->[:url_launcher_android] C:\Users\User\Documents\GitHub\vitrine-cliente\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-13:74
 130            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
-130-->[:url_launcher_android] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-74
+130-->[:url_launcher_android] C:\Users\User\Documents\GitHub\vitrine-cliente\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-74
 131            android:exported="false"
-131-->[:url_launcher_android] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-37
+131-->[:url_launcher_android] C:\Users\User\Documents\GitHub\vitrine-cliente\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-37
 132            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-132-->[:url_launcher_android] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-71
+132-->[:url_launcher_android] C:\Users\User\Documents\GitHub\vitrine-cliente\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-71
 133        <activity
 133-->[com.google.firebase:firebase-auth:22.3.1] C:\Users\User\.gradle\caches\transforms-3\9a6495536f1dc8266e43c1eb9ce73a56\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:29:9-46:20
 134            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
@@ -231,7 +231,7 @@
 143-->[com.google.firebase:firebase-auth:22.3.1] C:\Users\User\.gradle\caches\transforms-3\9a6495536f1dc8266e43c1eb9ce73a56\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:39:27-75
 144
 145                <data
-145-->[:file_picker] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-44
+145-->[:file_picker] C:\Users\User\Documents\GitHub\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-44
 146                    android:host="firebase.auth"
 147                    android:path="/"
 148                    android:scheme="genericidp" />
@@ -263,7 +263,7 @@
 161-->[com.google.firebase:firebase-auth:22.3.1] C:\Users\User\.gradle\caches\transforms-3\9a6495536f1dc8266e43c1eb9ce73a56\transformed\jetified-firebase-auth-22.3.1\AndroidManifest.xml:39:27-75
 162
 163                <data
-163-->[:file_picker] C:\Users\User\Documents\GitHub-OLD\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-44
+163-->[:file_picker] C:\Users\User\Documents\GitHub\vitrine-cliente\build\file_picker\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-44
 164                    android:host="firebase.auth"
 165                    android:path="/"
 166                    android:scheme="recaptcha" />

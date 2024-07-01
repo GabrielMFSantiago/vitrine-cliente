@@ -4318,7 +4318,7 @@
             "outputFile": "com.cliente.vitrine.app-merged_res-27:/values-night-v8_values-night-v8.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\Users\\User\\Documents\\GitHub-OLD\\vitrine-cliente\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "C:\\Users\\User\\Documents\\GitHub\\vitrine-cliente\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
@@ -4432,6 +4432,42 @@
                     }
                 },
                 {
+                    "source": "C:\\Users\\User\\Documents\\GitHub\\vitrine-cliente\\build\\app\\generated\\res\\google-services\\debug\\values\\values.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "55,137,241,350,470,570",
+                        "endColumns": "81,103,108,119,99,76",
+                        "endOffsets": "132,236,345,465,565,642"
+                    },
+                    "to": {
+                        "startLines": "144,145,146,147,148,149",
+                        "startColumns": "4,4,4,4,4,4",
+                        "startOffsets": "10162,10244,10348,10457,10577,10677",
+                        "endColumns": "81,103,108,119,99,76",
+                        "endOffsets": "10239,10343,10452,10572,10672,10749"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\User\\Documents\\GitHub\\vitrine-cliente\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "3,14",
+                        "startColumns": "4,4",
+                        "startOffsets": "176,832",
+                        "endLines": "7,16",
+                        "endColumns": "12,12",
+                        "endOffsets": "483,998"
+                    },
+                    "to": {
+                        "startLines": "151,155",
+                        "startColumns": "4,4",
+                        "startOffsets": "10825,11006",
+                        "endLines": "154,157",
+                        "endColumns": "12,12",
+                        "endOffsets": "11001,11170"
+                    }
+                },
+                {
                     "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\5d8813ca6e077bb0acb410c5d16a5490\\transformed\\browser-1.5.0\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11",
@@ -4465,23 +4501,6 @@
                         "endLines": "2,11,12,17,18,27,28,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,89,90,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,113,115,116,117,118,119,120,121,150,158,162,163,167,168,169,170,186,196,229,250,283,289",
                         "endColumns": "59,71,87,64,65,68,62,69,67,71,69,60,73,72,60,60,61,63,61,60,67,99,59,65,72,68,56,51,61,71,75,64,58,58,59,59,59,59,59,59,59,59,59,59,58,59,59,59,59,59,59,59,59,59,59,58,59,59,58,58,58,58,58,58,34,34,54,62,54,57,57,60,62,56,50,49,60,56,65,33,34,34,69,66,71,68,68,73,71,87,70,116,12,109,12,128,71,66,24,24,24,24,24,24",
                         "endOffsets": "160,568,656,970,1036,1776,1839,2052,2120,2192,2262,2323,2397,2470,2531,2592,2654,2718,2780,2841,2909,3009,3069,3135,3208,3277,3334,3386,3448,3520,3596,3661,3720,3779,3839,3899,3959,4019,4079,4139,4199,4259,4319,4379,4438,4498,4558,4618,4678,4738,4798,4858,4918,4978,5038,5097,5157,5217,5276,5335,5394,5453,5512,5571,5666,5701,5798,5861,5916,5974,6032,6093,6156,6213,6264,6314,6375,6432,6498,6532,6567,6602,6947,7097,7169,7238,7307,7381,7453,7541,10820,11287,11488,11598,11799,11928,12000,12067,12596,12897,14628,15309,15991,16158"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\User\\Documents\\GitHub-OLD\\vitrine-cliente\\build\\app\\generated\\res\\google-services\\debug\\values\\values.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7",
-                        "startColumns": "4,4,4,4,4,4",
-                        "startOffsets": "55,137,241,350,470,570",
-                        "endColumns": "81,103,108,119,99,76",
-                        "endOffsets": "132,236,345,465,565,642"
-                    },
-                    "to": {
-                        "startLines": "144,145,146,147,148,149",
-                        "startColumns": "4,4,4,4,4,4",
-                        "startOffsets": "10162,10244,10348,10457,10577,10677",
-                        "endColumns": "81,103,108,119,99,76",
-                        "endOffsets": "10239,10343,10452,10572,10672,10749"
                     }
                 },
                 {
@@ -4588,25 +4607,6 @@
                         "startOffsets": "6814,8586",
                         "endColumns": "67,166",
                         "endOffsets": "6877,8748"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\User\\Documents\\GitHub-OLD\\vitrine-cliente\\android\\app\\src\\main\\res\\values\\styles.xml",
-                    "from": {
-                        "startLines": "3,14",
-                        "startColumns": "4,4",
-                        "startOffsets": "176,832",
-                        "endLines": "7,16",
-                        "endColumns": "12,12",
-                        "endOffsets": "483,998"
-                    },
-                    "to": {
-                        "startLines": "151,155",
-                        "startColumns": "4,4",
-                        "startOffsets": "10825,11006",
-                        "endLines": "154,157",
-                        "endColumns": "12,12",
-                        "endOffsets": "11001,11170"
                     }
                 },
                 {
