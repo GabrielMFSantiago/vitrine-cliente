@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vitrine/componentes/side_menu.dart';
 import 'package:vitrine/pages/loading_page.dart';
-import 'package:vitrine/widgets/login_page.dart';
-import 'package:vitrine/widgets/perfil_page.dart';
-import 'package:vitrine/widgets/suporte_page.dart';
+import 'package:vitrine/pages/login_page.dart';
+import 'package:vitrine/pages/perfil_page.dart';
+import 'package:vitrine/pages/suporte_page.dart';
 
 // APP DE CLIENTE - Vitrine
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MaterialColor blackSwatch = MaterialColor(
-      0xFF000000, // Valor hexadecimal da cor preta
+      0xFF000000, 
       <int, Color>{
         50: Color(0xFF000000),
         100: Color(0xFF000000),
@@ -51,11 +51,11 @@ class MyApp extends StatelessWidget {
           ),
         ),
         textTheme: TextTheme(
-          headline1: TextStyle(
+          displayLarge: TextStyle(
             fontSize: 46.0,
             color: Color.fromARGB(255, 255, 255, 255),
           ),
-          bodyText1: const TextStyle(fontSize: 20),
+          bodyLarge: const TextStyle(fontSize: 20),
         ),
       ),
       home: const LoginPage(),

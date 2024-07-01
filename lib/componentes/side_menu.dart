@@ -8,7 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:convert';
-import 'package:vitrine/widgets/reservas_page.dart'; // Importe a tela de ReservasPage
+import 'package:vitrine/pages/reservas_page.dart'; // Importe a tela de ReservasPage
 
 class SideMenu extends StatefulWidget {
   const SideMenu({Key? key}) : super(key: key);
