@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:vitrine/componentes/side_menu.dart';
 import 'package:vitrine/componentes/side_menu_title.dart';
+import 'package:vitrine/pages/item_pesquisado_page.dart';
+
 import 'package:vitrine/pages/perfil_page.dart';
+import 'package:vitrine/pages/suporte_page.dart';
 import 'firebase_options.dart';
 import 'database.dart';
 import 'dart:async';
@@ -319,6 +322,7 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
+  
 
   Widget _buildItemList() {
     return ListView.builder(
@@ -331,9 +335,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PerfilPage(
-                      nomeLoja: docs[index]['nomeitem'] ?? '',
-                      imageUrl: docs[index]['img'] ?? '',
+                    builder: (context) => ItemPesquisadoPage(
+                     nomeLoja: usuariosLoja[index]['nomeLoja'] ?? '',
+                      imageUrl: usuariosLoja[index]['img'] ?? '', nomeItem: '',
                     ),
                   ),
                 );
@@ -356,4 +360,6 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
+  
+  
 }
