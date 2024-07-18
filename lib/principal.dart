@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:vitrine/componentes/side_menu.dart';
 import 'package:vitrine/componentes/side_menu_title.dart';
+import 'package:vitrine/pages/item_pesquisado_page.dart';
+
 import 'package:vitrine/pages/perfil_page.dart';
+import 'package:vitrine/pages/suporte_page.dart';
 import 'firebase_options.dart';
 import 'database.dart';
 import 'dart:async';
 import 'pages/favoritas_page.dart';
-
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -46,6 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<bool> selectedItems = List.generate(0, (_) => false);
   TextEditingController _filtragemController = TextEditingController();
   List<Map<String, dynamic>> usuariosLoja = [];
+  bool isSearching = false; // Flag to indicate if searching is active
 
   @override
   void initState() {
@@ -56,46 +57,40 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void initialize() async {
-  try {
-    List<Map<String, dynamic>> result = await db.listarUsuariosLoja();
-    setState(() {
-      usuariosLoja = result;
-    });
-  } catch (e) {
-    print('Erro ao inicializar dados: $e');
+    try {
+      List<Map<String, dynamic>> result = await db.listarUsuariosLoja();
+      setState(() {
+        usuariosLoja = result;
+      });
+    } catch (e) {
+      print('Erro ao inicializar dados: $e');
+    }
   }
-}
 
-void _filtrandoTudo(String query) async {
+  void _filtrandoTudo(String query) async {
     if (query.isNotEmpty) {
-      List<dynamic> resultados = await Database().filtrarInformacoes(query);
+      List<dynamic> resultados = await db.filtrarInformacoes(query);
       print('Resultados da filtragem: $resultados');
       setState(() {
         docs = resultados;
+        isSearching = true;
       });
     } else {
       // Se a consulta estiver vazia, reverta para todos os itens
       setState(() {
         docs = List.from(usuariosLoja); // Cria uma cópia da lista original
+        isSearching = false;
         print('Consulta vazia, revertendo para todos os itens: $docs');
       });
     }
   }
 
-
-
-
-
-
-
- void _atualizarListaDeLojas() {
+  void _atualizarListaDeLojas() {
     setState(() {
       usuariosLoja.clear(); // Limpa a lista de lojas
       initialize(); // Restaura a lista original de lojas
     });
   }
-
-
 
   void _filtrarPorCidade(String cidade) {
     setState(() {
@@ -113,68 +108,46 @@ void _filtrandoTudo(String query) async {
     });
   }
 
-  
-// Função para navegar para a tela de lojas favoritas
-void _navegarParaFavoritas() {
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => FavoritasPage()),
-  );
-}
+  void _navegarParaFavoritas() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => FavoritasPage()),
+    );
+  }
 
-
-/*
- void _buscarLojasPorCidade(String cidade) async {
-  try {
-    List<Map<String, dynamic>> result = await db.listarUsuariosLojaPorEndereco(cidade);
-
+  void _filtrarUsuariosPorCidade(String cidade) {
     setState(() {
-      usuariosLoja = result;
+      if (cidade.isNotEmpty) {
+        // Faça uma cópia dos dados originais para não perdê-los
+        List<Map<String, dynamic>> todasAsLojas = List.from(usuariosLoja);
+
+        // Filtrar as lojas com base na cidade
+        usuariosLoja = todasAsLojas.where((loja) {
+          String cidadeLoja = loja['cidade'] ?? '';
+          cidadeLoja = cidadeLoja.toLowerCase();
+          return cidadeLoja == cidade.toLowerCase(); // Alteração na condição de filtragem
+        }).toList();
+      } else {
+        // Se a cidade estiver vazia, restauramos todas as lojas
+        _atualizarListaDeLojas();
+      }
     });
-  } catch (e) {
-    print('Erro ao buscar lojas por cidade: $e');
   }
-}*/
 
-void _filtrarUsuariosPorCidade(String cidade) {
-  setState(() {
-    if (cidade.isNotEmpty) {
-      // Faça uma cópia dos dados originais para não perdê-los
-      List<Map<String, dynamic>> todasAsLojas = List.from(usuariosLoja);
-
-      // Filtrar as lojas com base na cidade
-      usuariosLoja = todasAsLojas.where((loja) {
-        String cidadeLoja = loja['cidade'] ?? '';
-        cidadeLoja = cidadeLoja.toLowerCase();
-        return cidadeLoja == cidade.toLowerCase(); // Alteração na condição de filtragem
-      }).toList();
+  Widget _buildImageWidget(String? imageUrl) {
+    if (imageUrl != null && imageUrl.isNotEmpty) {
+      return CircleAvatar(
+        radius: 40,
+        backgroundImage: NetworkImage(imageUrl),
+      );
     } else {
-      // Se a cidade estiver vazia, restauramos todas as lojas
-      _atualizarListaDeLojas();
+      // Caso a URL da imagem seja inválida, retornamos um widget de espaço reservado
+      return Placeholder(
+        fallbackHeight: 80, // Altura do espaço reservado
+        fallbackWidth: 80, // Largura do espaço reservado
+      );
     }
-  });
-}
-
-
-
-
-
-
-
-Widget _buildImageWidget(String? imageUrl) {
-  if (imageUrl != null && imageUrl.isNotEmpty) {
-    return CircleAvatar(
-      radius: 40,
-      backgroundImage: NetworkImage(imageUrl),
-    );
-  } else {
-    // Caso a URL da imagem seja inválida, retornamos um widget de espaço reservado
-    return Placeholder(
-      fallbackHeight: 80, // Altura do espaço reservado
-      fallbackWidth: 80, // Largura do espaço reservado
-    );
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -196,100 +169,91 @@ Widget _buildImageWidget(String? imageUrl) {
         title: Text(
           widget.title,
           style: TextStyle(
-            color: Colors.white, 
+            color: Colors.white,
           ),
         ),
         actions: [
-
-
-
-IconButton(
-  onPressed: () {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            'Escolha uma Cidade:',
-            style: TextStyle(
-              fontSize: 18, // Tamanho da fonte
-              color: Colors.black, // Cor do texto
-            ),
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text(
+                      'Escolha uma Cidade:',
+                      style: TextStyle(
+                        fontSize: 18, // Tamanho da fonte
+                        color: Colors.black, // Cor do texto
+                      ),
+                    ),
+                    content: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              _filtrarUsuariosPorCidade('itaperuna');
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              'Itaperuna',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              _filtrarUsuariosPorCidade('campos dos goytacazes');
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              'Campos dos Goytacazes',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              _filtrarUsuariosPorCidade('macaé');
+                              Navigator.of(context).pop();
+                            },
+                            child: Text(
+                              'Macaé',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(
+                          'Fechar',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            icon: Image.asset("images/mapa.png"),
           ),
-          content: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    _filtrarUsuariosPorCidade('itaperuna');
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'Itaperuna',
-                    style: TextStyle(
-                      fontSize: 16, 
-                      color: Colors.black, 
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    _filtrarUsuariosPorCidade('campos dos goytacazes');
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'Campos dos Goytacazes',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black, 
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    _filtrarUsuariosPorCidade('macaé');
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'Macaé',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.black, 
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                'Fechar',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black, 
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  },
-  icon: Image.asset("images/mapa.png"),
-),
-
-
-
-
         ],
-
       ),
-      
       body: Column(
         children: [
           Padding(
@@ -297,61 +261,19 @@ IconButton(
             child: TextField(
               controller: _filtragemController,
               onChanged: (query) {
-              _filtrandoTudo(query);
-              
-            },
-            decoration: InputDecoration(
-              hintText: 'Pesquisar',
-              prefixIcon: Icon(Icons.search),
+                _filtrandoTudo(query);
+              },
+              decoration: InputDecoration(
+                hintText: 'Pesquisar',
+                prefixIcon: Icon(Icons.search),
+              ),
             ),
           ),
+          Expanded(
+            child: isSearching ? _buildItemList() : _buildStoreList(),
           ),
-      Expanded(
-        child: ListView.builder(
-          itemCount: usuariosLoja.length,
-          itemBuilder: (context, index) {
-            return Column(
-              children: [
-                ListTile(
-                 onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PerfilPage(
-                          nomeLoja: usuariosLoja[index]['nomeLoja'] ?? '',
-                          imageUrl: usuariosLoja[index]['img'] ?? '',
-                        ),
-                      ), 
-                    );
-                  },
-
-
-                leading: Container(
-                  width: 80, // Defina o tamanho desejado aqui
-                  height: 80, // Defina o tamanho desejado aqui
-                  child: _buildImageWidget(usuariosLoja[index]['img']),
-                ),
-
-
-                  title: Text(usuariosLoja[index]['nomeLoja'] ?? ''),
-                ),
-                const Divider(
-                  color: Colors.grey,
-                  thickness: 0.5,
-                  height: 25,
-                ),
-              ],
-            );
-          },
-        ),
-      ),
-
         ],
       ),
-
-
-
-              //boão flutuante padrão
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color.fromARGB(255, 0, 0, 0),
         onPressed: () {
@@ -362,11 +284,82 @@ IconButton(
           "images/btndiamante.png",
         ),
       ),
-
-
-
-
-      
     );
   }
+
+  Widget _buildStoreList() {
+    return ListView.builder(
+      itemCount: usuariosLoja.length,
+      itemBuilder: (context, index) {
+        return Column(
+          children: [
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PerfilPage(
+                      nomeLoja: usuariosLoja[index]['nomeLoja'] ?? '',
+                      imageUrl: usuariosLoja[index]['img'] ?? '',
+                    ),
+                  ),
+                );
+              },
+              leading: Container(
+                width: 80, // Defina o tamanho desejado aqui
+                height: 80, // Defina o tamanho desejado aqui
+                child: _buildImageWidget(usuariosLoja[index]['img']),
+              ),
+              title: Text(usuariosLoja[index]['nomeLoja'] ?? ''),
+            ),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0.5,
+              height: 25,
+            ),
+          ],
+        );
+      },
+    );
+  }
+  
+
+  Widget _buildItemList() {
+    return ListView.builder(
+      itemCount: docs.length,
+      itemBuilder: (context, index) {
+        return Column(
+          children: [
+            ListTile(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ItemPesquisadoPage(
+                     nomeLoja: usuariosLoja[index]['nomeLoja'] ?? '',
+                      imageUrl: usuariosLoja[index]['img'] ?? '', nomeItem: '',
+                    ),
+                  ),
+                );
+              },
+              leading: Container(
+                width: 80, // Defina o tamanho desejado aqui
+                height: 80, // Defina o tamanho desejado aqui
+                child: _buildImageWidget(docs[index]['img']),
+              ),
+              title: Text(docs[index]['nomeitem'] ?? ''),
+              subtitle: Text(docs[index]['descricao'] ?? ''),
+            ),
+            const Divider(
+              color: Colors.grey,
+              thickness: 0.5,
+              height: 25,
+            ),
+          ],
+        );
+      },
+    );
+  }
+  
+  
 }
