@@ -331,17 +331,34 @@ class _MyHomePageState extends State<MyHomePage> {
         return Column(
           children: [
             ListTile(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ItemPesquisadoPage(
-                     nomeLoja: usuariosLoja[index]['nomeLoja'] ?? '',
-                      imageUrl: usuariosLoja[index]['img'] ?? '', nomeItem: '',
-                    ),
-                  ),
-                );
-              },
+   onTap: () {
+  // Primeiro, extraia os dados do documento atual.
+  final produtoDados = docs[index];
+
+  // Combine os dados de 'usuariosLoja' e 'docs' para garantir que todos os dados necessários estejam presentes.
+  final produtoCompleto = {
+    'nomeitem': usuariosLoja[index]['nomeItem'] ?? produtoDados['nomeitem'] ?? '',
+    'foto_loja': usuariosLoja[index]['img'] ?? produtoDados['foto_loja'] ?? '',
+    'nome_loja': usuariosLoja[index]['nomeLoja'] ?? produtoDados['nome_loja'] ?? '',
+    'descricao': produtoDados['descricao'] ?? '',
+    'tamanho': produtoDados['tamanho'] ?? '',
+    'cor': produtoDados['cor'] ?? '',
+    'preco': produtoDados['preco'] ?? '',
+    'img': produtoDados['img'] ?? '',
+    // Adicione quaisquer outros campos que possam ser necessários.
+  };
+
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => ItemPesquisadoPage(
+        produto: produtoCompleto,
+        telefone: produtoDados['telefone'] ?? 'SeuNúmeroDeTelefone', // Substitua com o telefone correto
+      ),
+    ),
+  );
+},
+
               leading: Container(
                 width: 80, // Defina o tamanho desejado aqui
                 height: 80, // Defina o tamanho desejado aqui

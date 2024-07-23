@@ -172,7 +172,7 @@ void _abrirRotaNoGoogleMaps(String endereco) async {
               children: [
                 Container(
                   width: double.infinity,
-                  height: MediaQuery.of(context).size.height * 0.42,
+                  height: MediaQuery.of(context).size.height * 0.48,
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: SingleChildScrollView(
