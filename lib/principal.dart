@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -287,6 +288,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+//Listagem das Lojas
   Widget _buildStoreList() {
     return ListView.builder(
       itemCount: usuariosLoja.length,
@@ -324,6 +326,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
   
 
+// Listagem dos produtos pesquisados
   Widget _buildItemList() {
     return ListView.builder(
       itemCount: docs.length,
@@ -331,33 +334,49 @@ class _MyHomePageState extends State<MyHomePage> {
         return Column(
           children: [
             ListTile(
-   onTap: () {
-  // Primeiro, extraia os dados do documento atual.
-  final produtoDados = docs[index];
 
-  // Combine os dados de 'usuariosLoja' e 'docs' para garantir que todos os dados necessários estejam presentes.
-  final produtoCompleto = {
-    'nomeitem': usuariosLoja[index]['nomeItem'] ?? produtoDados['nomeitem'] ?? '',
-    'foto_loja': usuariosLoja[index]['img'] ?? produtoDados['foto_loja'] ?? '',
-    'nome_loja': usuariosLoja[index]['nomeLoja'] ?? produtoDados['nome_loja'] ?? '',
-    'descricao': produtoDados['descricao'] ?? '',
-    'tamanho': produtoDados['tamanho'] ?? '',
-    'cor': produtoDados['cor'] ?? '',
-    'preco': produtoDados['preco'] ?? '',
-    'img': produtoDados['img'] ?? '',
-    // Adicione quaisquer outros campos que possam ser necessários.
-  };
+            onTap: () async {
+            // Primeiro, extraia os dados do documento atual.
+            final produtoDados = docs[index];
+            final userId = produtoDados['userId'];
 
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => ItemPesquisadoPage(
-        produto: produtoCompleto,
-        telefone: produtoDados['telefone'] ?? 'SeuNúmeroDeTelefone', // Substitua com o telefone correto
-      ),
-    ),
-  );
-},
+            // Busca as informações da loja correspondente no Firestore
+            final lojaSnapshot = await FirebaseFirestore.instance
+                .collection('usersadm')
+                .doc(userId)
+                .get();
+
+            if (lojaSnapshot.exists) {
+              final lojaDados = lojaSnapshot.data()!;
+
+              // Combine os dados de 'produtoDados' e 'lojaDados' para garantir que todos os dados necessários estejam presentes.
+              final produtoCompleto = {
+                'nomeitem': produtoDados['nomeitem'] ?? '',
+                'foto_loja': lojaDados['profileImage'] ?? '',
+                'nome_loja': lojaDados['nome'] ?? '',
+                'descricao': produtoDados['descricao'] ?? '',
+                'tamanho': produtoDados['tamanho'] ?? '',
+                'cor': produtoDados['cor'] ?? '',
+                'preco': produtoDados['preco'] ?? '',
+                'img': produtoDados['img'] ?? '',
+                // Adicione quaisquer outros campos que possam ser necessários.
+              };
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ItemPesquisadoPage(
+                    produto: produtoCompleto,
+                    telefone: lojaDados['telefone'] ?? 'SeuNúmeroDeTelefone', // Substitua com o telefone correto
+                  ),
+                ),
+              );
+            } else {
+              // Trate o caso em que a loja não foi encontrada
+              print("Loja não encontrada para o userId: $userId");
+            }
+          },
+
 
               leading: Container(
                 width: 80, // Defina o tamanho desejado aqui

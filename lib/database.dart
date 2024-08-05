@@ -12,6 +12,27 @@ class Database {
   String? getCurrentUserId() {
     return FirebaseAuth.instance.currentUser?.uid;
   }
+
+
+Future<void> remover_favorito(String docId) async {
+    try {
+      String? userId = getCurrentUserId();
+      if (userId != null) {
+        await _firestore
+            .collection('userscliente')
+            .doc(userId)
+            .collection('Favoritas')
+            .doc(docId)
+            .delete();
+      }
+    } catch (e) {
+      print('Erro ao remover favorito: $e');
+      throw e;
+    }
+  }
+
+
+
   Future<void> incluireservas(Reserva c) async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
@@ -68,51 +89,6 @@ Future<List<Map<String, dynamic>>> listar() async {
 
 
 
-/*
-
-Future<List<Map<String, dynamic>>> filtrarInformacoes(String userId, String query) async {
-  try {
-    QuerySnapshot querySnapshot = await _firestore
-     .collection('usersadm')
-     .get();
-
-    List<Map<String, dynamic>> lojas = querySnapshot.docs
-     .map((doc) => doc.data() as Map<String, dynamic>)
-     .where((loja) => loja['userId'] == userId)
-     .toList();
-
-    List<Map<String, dynamic>> itens = [];
-    for (var loja in lojas) {
-      List<Map<String, dynamic>> lojaItens = (loja['Items'] as List<dynamic>)
-       .map((item) => {
-                "nomeitem": item['nomeitem'],
-                "cor": item["cor"],
-                "tamanho": item["tamanho"],
-                "descricao": item["descricao"],
-                "preco": item["preco"],
-              })
-       .toList();
-      itens.addAll(lojaItens);
-    }
-
-    List<Map<String, dynamic>> resultados = itens
-     .where((item) => item['nomeitem'].toLowerCase().contains(query.toLowerCase()) ||
-            item['cor'].toLowerCase().contains(query.toLowerCase()) ||
-            item['tamanho'].toLowerCase().contains(query.toLowerCase()) ||
-            item['descricao'].toLowerCase().contains(query.toLowerCase()) ||
-            item['preco'].toString().toLowerCase().contains(query.toLowerCase()))
-     .toList();
- 
-    print('Resultados da filtragem: $resultados');
-    return resultados;
-  } catch (e) {
-    print('Erro ao filtrar informações: $e');
-    return [];
-  }
-}
-*/
-
-
 Future<List<Map<String, dynamic>>> filtrarInformacoes(String query) async {
   try {
     QuerySnapshot querySnapshot = await _firestore.collection('Items').get();
@@ -150,7 +126,6 @@ Future<List<Map<String, dynamic>>> filtrarInformacoes(String query) async {
 
 
 
-
 Future<List<Map<String, dynamic>>> listar_favoritos() async {
   User? user = FirebaseAuth.instance.currentUser;
 
@@ -164,6 +139,7 @@ Future<List<Map<String, dynamic>>> listar_favoritos() async {
 
     List<Map<String, dynamic>> docs = querySnapshot.docs.map((doc) {
       return {
+        "docId": doc.id, 
         "nomeLoja": doc['nomeLoja'],
         "imageUrl": doc['imageUrl'],
       };
@@ -176,6 +152,7 @@ Future<List<Map<String, dynamic>>> listar_favoritos() async {
     return [];
   }
 }
+
 
 
 

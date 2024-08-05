@@ -4,12 +4,9 @@ import 'package:vitrine/pages/perfil_page.dart';
 
 class FavoritasPage extends StatefulWidget {
   FavoritasPage({Key? key}) : super(key: key);
-  
+
   @override
   State<FavoritasPage> createState() => _FavoritasPageState();
-
-
-
 }
 
 class _FavoritasPageState extends State<FavoritasPage> {
@@ -20,7 +17,7 @@ class _FavoritasPageState extends State<FavoritasPage> {
 
   initialize() {
     db = Database();
-    db.initialize(); 
+    db.initialize();
     print('ID do Usuário Atual: ${db.getCurrentUserId()}');
     db.listar_favoritos().then((value) {
       setState(() {
@@ -40,19 +37,57 @@ class _FavoritasPageState extends State<FavoritasPage> {
   }
 
   Widget _buildImageWidget(String? imageUrl) {
-  if (imageUrl != null && imageUrl.isNotEmpty) {
-    return CircleAvatar(
-      radius: 40,
-      backgroundImage: NetworkImage(imageUrl),
-    );
-  } else {
-    // Caso a URL da imagem seja inválida, retornamos um widget de espaço reservado
-    return Placeholder(
-      fallbackHeight: 80, // Altura do espaço reservado
-      fallbackWidth: 80, // Largura do espaço reservado
+    if (imageUrl != null && imageUrl.isNotEmpty) {
+      return CircleAvatar(
+        radius: 40,
+        backgroundImage: NetworkImage(imageUrl),
+      );
+    } else {
+      // Caso a URL da imagem seja inválida, retornamos um widget de espaço reservado
+      return Placeholder(
+        fallbackHeight: 80, // Altura do espaço reservado
+        fallbackWidth: 80, // Largura do espaço reservado
+      );
+    }
+  }
+
+  Future<void> _showDeleteConfirmationDialog(BuildContext context, int index) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // O usuário deve tocar no botão para fechar o diálogo
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Deseja excluir esta Vitrine?'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancelar', style: TextStyle(color: Colors.black)),
+              onPressed: () {
+                // Atualiza a lista de favoritos ao cancelar a exclusão
+                initialize();
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Excluir', style: TextStyle(color: Colors.black)),
+              onPressed: () async {
+                try {
+                  // Remove o favorito do banco de dados
+                  await db.remover_favorito(docs[index]['docId']);
+                  // Remove o favorito da lista local
+                  setState(() {
+                    docs.removeAt(index);
+                  });
+                } catch (e) {
+                  print('Erro ao remover favorito: $e');
+                }
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -70,63 +105,70 @@ class _FavoritasPageState extends State<FavoritasPage> {
       ),
       body: Column(
         children: [
-           Padding(
+          Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: _filtragemController,
-             // onChanged: _filtrandoTudo, // Atualiza a lista de registros de acordo com o termo de pesquisa
+              // onChanged: _filtrandoTudo, // Atualiza a lista de registros de acordo com o termo de pesquisa
               decoration: InputDecoration(
                 hintText: 'Pesquisar',
                 prefixIcon: Icon(Icons.search),
               ),
             ),
           ),
-
-        Expanded(
-         child: docs.isNotEmpty
-          ? ListView.builder(
-              itemCount: docs.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    ListTile(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PerfilPage(
-                              nomeLoja: docs[index]['nomeLoja'] ?? 'Nome da Loja não disponível',
-                              imageUrl: docs[index]['imageUrl'] ?? '', // Passe a URL da imagem da loja
+          Expanded(
+            child: docs.isNotEmpty
+                ? ListView.builder(
+                    itemCount: docs.length,
+                    itemBuilder: (context, index) {
+                      return Dismissible(
+                        key: UniqueKey(),
+                        direction: DismissDirection.endToStart,
+                        onDismissed: (direction) {
+                          // Mostra o diálogo de confirmação
+                          _showDeleteConfirmationDialog(context, index);
+                        },
+                        background: Container(
+                          color: Colors.red,
+                          alignment: Alignment.centerRight,
+                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          child: Icon(Icons.delete, color: Colors.white),
+                        ),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PerfilPage(
+                                      nomeLoja: docs[index]['nomeLoja'] ?? 'Nome da Loja não disponível',
+                                      imageUrl: docs[index]['imageUrl'] ?? '', // Passe a URL da imagem da loja
+                                    ),
+                                  ),
+                                );
+                              },
+                              leading: Container(
+                                width: 80,
+                                height: 80,
+                                child: _buildImageWidget(docs[index]['imageUrl'] ?? ''),
+                              ),
+                              title: Text(docs[index]['nomeLoja'] ?? 'Nome da Loja não disponível'),
                             ),
-                          ), 
-                        );
-                      },
-                    
-                      leading: Container(
-                        width: 80, 
-                        height: 80, 
-                        child: _buildImageWidget(docs[index]['imageUrl'] ?? ''), 
-                      ),
-                      
-                      title: Text(docs[index]['nomeLoja'] ?? 'Nome da Loja não disponível'),
-                    
-                    ),
-                    
-                    
-                    const Divider(
-                        color: Colors.grey,
-                        thickness: 0.5,
-                        height: 25,
-                      ),
-                  ],
-                );
-              },
-            )
-       
-          : Center(
-              child: Text('Ainda não há loja favorita...'),
-            ),
-        ),
+                            const Divider(
+                              color: Colors.grey,
+                              thickness: 0.5,
+                              height: 25,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  )
+                : Center(
+                    child: Text('Ainda não há loja favorita...'),
+                  ),
+          ),
         ],
       ),
     );
