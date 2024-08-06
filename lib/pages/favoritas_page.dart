@@ -14,6 +14,7 @@ class _FavoritasPageState extends State<FavoritasPage> {
   List docs = [];
   List<bool> selectedItems = List.generate(0, (_) => false);
   final TextEditingController _filtragemController = TextEditingController();
+  List docsFiltrados = [];
 
   initialize() {
     db = Database();
@@ -22,12 +23,28 @@ class _FavoritasPageState extends State<FavoritasPage> {
     db.listar_favoritos().then((value) {
       setState(() {
         docs = value; // Atualiza a lista de registros
+        docsFiltrados = List.from(docs); // Inicializa a lista de filtrados
         selectedItems = List.generate(docs.length, (_) => false);
         print('Dados da Favoritas: $docs'); // Log para verificar os dados
       });
     }).catchError((error) {
       print('Erro ao listar lojas favoritas: $error'); // Log para capturar erros
     });
+  }
+
+  void _filtrandoFavoritas(String query) {
+    if (query.isNotEmpty) {
+      setState(() {
+        docsFiltrados = docs.where((doc) {
+          final nomeLoja = doc['nomeLoja']?.toLowerCase() ?? '';
+          return nomeLoja.contains(query.toLowerCase());
+        }).toList();
+      });
+    } else {
+      setState(() {
+        docsFiltrados = List.from(docs);
+      });
+    }
   }
 
   @override
@@ -76,6 +93,7 @@ class _FavoritasPageState extends State<FavoritasPage> {
                   // Remove o favorito da lista local
                   setState(() {
                     docs.removeAt(index);
+                    _filtrandoFavoritas(_filtragemController.text); // Atualiza a lista filtrada
                   });
                 } catch (e) {
                   print('Erro ao remover favorito: $e');
@@ -109,7 +127,7 @@ class _FavoritasPageState extends State<FavoritasPage> {
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: _filtragemController,
-              // onChanged: _filtrandoTudo, // Atualiza a lista de registros de acordo com o termo de pesquisa
+              onChanged: _filtrandoFavoritas, // Atualiza a lista de registros de acordo com o termo de pesquisa
               decoration: InputDecoration(
                 hintText: 'Pesquisar',
                 prefixIcon: Icon(Icons.search),
@@ -117,9 +135,9 @@ class _FavoritasPageState extends State<FavoritasPage> {
             ),
           ),
           Expanded(
-            child: docs.isNotEmpty
+            child: docsFiltrados.isNotEmpty
                 ? ListView.builder(
-                    itemCount: docs.length,
+                    itemCount: docsFiltrados.length,
                     itemBuilder: (context, index) {
                       return Dismissible(
                         key: UniqueKey(),
@@ -142,8 +160,8 @@ class _FavoritasPageState extends State<FavoritasPage> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => PerfilPage(
-                                      nomeLoja: docs[index]['nomeLoja'] ?? 'Nome da Loja não disponível',
-                                      imageUrl: docs[index]['imageUrl'] ?? '', // Passe a URL da imagem da loja
+                                      nomeLoja: docsFiltrados[index]['nomeLoja'] ?? 'Nome da Loja não disponível',
+                                      imageUrl: docsFiltrados[index]['imageUrl'] ?? '', // Passe a URL da imagem da loja
                                     ),
                                   ),
                                 );
@@ -151,9 +169,9 @@ class _FavoritasPageState extends State<FavoritasPage> {
                               leading: Container(
                                 width: 80,
                                 height: 80,
-                                child: _buildImageWidget(docs[index]['imageUrl'] ?? ''),
+                                child: _buildImageWidget(docsFiltrados[index]['imageUrl'] ?? ''),
                               ),
-                              title: Text(docs[index]['nomeLoja'] ?? 'Nome da Loja não disponível'),
+                              title: Text(docsFiltrados[index]['nomeLoja'] ?? 'Nome da Loja não disponível'),
                             ),
                             const Divider(
                               color: Colors.grey,
