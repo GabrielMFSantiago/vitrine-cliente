@@ -1,9 +1,20 @@
+<<<<<<< HEAD
+=======
+import 'package:cloud_firestore/cloud_firestore.dart';
+>>>>>>> usuario-remoto/main-vitrine-cliente
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:vitrine/componentes/side_menu.dart';
 import 'package:vitrine/componentes/side_menu_title.dart';
+<<<<<<< HEAD
 import 'package:vitrine/pages/perfil_page.dart';
+=======
+import 'package:vitrine/pages/item_pesquisado_page.dart';
+
+import 'package:vitrine/pages/perfil_page.dart';
+import 'package:vitrine/pages/suporte_page.dart';
+>>>>>>> usuario-remoto/main-vitrine-cliente
 import 'firebase_options.dart';
 import 'database.dart';
 import 'dart:async';
@@ -284,6 +295,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+<<<<<<< HEAD
+=======
+//Listagem das Lojas
+>>>>>>> usuario-remoto/main-vitrine-cliente
   Widget _buildStoreList() {
     return ListView.builder(
       itemCount: usuariosLoja.length,
@@ -319,7 +334,13 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
+<<<<<<< HEAD
 
+=======
+  
+
+// Listagem dos produtos pesquisados
+>>>>>>> usuario-remoto/main-vitrine-cliente
   Widget _buildItemList() {
     return ListView.builder(
       itemCount: docs.length,
@@ -327,6 +348,7 @@ class _MyHomePageState extends State<MyHomePage> {
         return Column(
           children: [
             ListTile(
+<<<<<<< HEAD
               onTap: () {
                 Navigator.push(
                   context,
@@ -338,6 +360,52 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 );
               },
+=======
+
+            onTap: () async {
+            // Primeiro, extraia os dados do documento atual.
+            final produtoDados = docs[index];
+            final userId = produtoDados['userId'];
+
+            // Busca as informações da loja correspondente no Firestore
+            final lojaSnapshot = await FirebaseFirestore.instance
+                .collection('usersadm')
+                .doc(userId)
+                .get();
+
+            if (lojaSnapshot.exists) {
+              final lojaDados = lojaSnapshot.data()!;
+
+              // Combine os dados de 'produtoDados' e 'lojaDados' para garantir que todos os dados necessários estejam presentes.
+              final produtoCompleto = {
+                'nomeitem': produtoDados['nomeitem'] ?? '',
+                'foto_loja': lojaDados['profileImage'] ?? '',
+                'nome_loja': lojaDados['nome'] ?? '',
+                'descricao': produtoDados['descricao'] ?? '',
+                'tamanho': produtoDados['tamanho'] ?? '',
+                'cor': produtoDados['cor'] ?? '',
+                'preco': produtoDados['preco'] ?? '',
+                'img': produtoDados['img'] ?? '',
+                // Adicione quaisquer outros campos que possam ser necessários.
+              };
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ItemPesquisadoPage(
+                    produto: produtoCompleto,
+                    telefone: lojaDados['telefone'] ?? 'SeuNúmeroDeTelefone', // Substitua com o telefone correto
+                  ),
+                ),
+              );
+            } else {
+              // Trate o caso em que a loja não foi encontrada
+              print("Loja não encontrada para o userId: $userId");
+            }
+          },
+
+
+>>>>>>> usuario-remoto/main-vitrine-cliente
               leading: Container(
                 width: 80, // Defina o tamanho desejado aqui
                 height: 80, // Defina o tamanho desejado aqui
@@ -356,4 +424,9 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
+<<<<<<< HEAD
+=======
+  
+  
+>>>>>>> usuario-remoto/main-vitrine-cliente
 }

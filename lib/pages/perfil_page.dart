@@ -99,6 +99,7 @@ void _favoritarLoja() async {
       DocumentReference userDocRef = usersClienteRef.doc(user.uid);
 
       // Referência para a coleção 'Favoritas' dentro do documento do usuário
+<<<<<<< HEAD
       CollectionReference FavoritasRef = userDocRef.collection('Favoritas');
 
       // Adicionar a Favoritas à coleção 'Favoritas' do usuário
@@ -111,6 +112,39 @@ void _favoritarLoja() async {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Favoritada com sucesso!')),
       );
+=======
+      CollectionReference favoritasRef = userDocRef.collection('Favoritas');
+
+      // Verificar se a loja já está favoritada
+      QuerySnapshot querySnapshot = await favoritasRef
+          .where('nomeLoja', isEqualTo: widget.nomeLoja)
+          .limit(1)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        // Loja já está favoritada, exibir mensagem apropriada
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Esta Vitrine já é favorita!'),
+            duration: Duration(seconds: 1), // Duração reduzida para 2 segundos
+          ),
+        );
+      } else {
+        // Adicionar a Favoritas à coleção 'Favoritas' do usuário
+        await favoritasRef.add({
+          'nomeLoja': widget.nomeLoja,
+          'imageUrl': widget.imageUrl,
+        });
+
+        // Feedback para o usuário de que a loja foi favoritada com sucesso
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Favoritada com sucesso!'),
+            duration: Duration(seconds: 1), // Duração reduzida para 2 segundos
+          ),
+        );
+      }
+>>>>>>> usuario-remoto/main-vitrine-cliente
     } else {
       // Caso não haja usuário autenticado, exibir uma mensagem de erro
       throw 'Nenhum usuário autenticado.';
@@ -118,7 +152,14 @@ void _favoritarLoja() async {
   } catch (e) {
     print('Erro ao favoritar loja: $e');
     ScaffoldMessenger.of(context).showSnackBar(
+<<<<<<< HEAD
       SnackBar(content: Text('Erro ao favoritar loja')),
+=======
+      SnackBar(
+        content: Text('Erro ao favoritar loja'),
+        duration: Duration(seconds: 2), // Duração reduzida para 2 segundos
+      ),
+>>>>>>> usuario-remoto/main-vitrine-cliente
     );
   }
 }
@@ -126,8 +167,11 @@ void _favoritarLoja() async {
 
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> usuario-remoto/main-vitrine-cliente
 void _abrirWhatsApp(String telefone, String mensagem) async {
   final whatsappUrl = "https://wa.me/$telefone?text=${Uri.encodeFull(mensagem)}";
   try {
@@ -172,7 +216,11 @@ void _abrirRotaNoGoogleMaps(String endereco) async {
               children: [
                 Container(
                   width: double.infinity,
+<<<<<<< HEAD
                   height: MediaQuery.of(context).size.height * 0.42,
+=======
+                  height: MediaQuery.of(context).size.height * 0.48,
+>>>>>>> usuario-remoto/main-vitrine-cliente
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: SingleChildScrollView(

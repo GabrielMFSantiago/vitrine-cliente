@@ -4,7 +4,11 @@
             "outputFile": "com.cliente.vitrine.app-mergeDebugResources-25:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
+<<<<<<< HEAD
                     "source": "C:\\Users\\User\\Documents\\GitHub\\vitrine-cliente\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+=======
+                    "source": "C:\\Users\\Danillo\\Documents\\GitHub\\vitrine-cliente\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+>>>>>>> usuario-remoto/main-vitrine-cliente
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

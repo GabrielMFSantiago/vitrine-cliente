@@ -12,6 +12,30 @@ class Database {
   String? getCurrentUserId() {
     return FirebaseAuth.instance.currentUser?.uid;
   }
+<<<<<<< HEAD
+=======
+
+
+Future<void> remover_favorito(String docId) async {
+    try {
+      String? userId = getCurrentUserId();
+      if (userId != null) {
+        await _firestore
+            .collection('userscliente')
+            .doc(userId)
+            .collection('Favoritas')
+            .doc(docId)
+            .delete();
+      }
+    } catch (e) {
+      print('Erro ao remover favorito: $e');
+      throw e;
+    }
+  }
+
+
+
+>>>>>>> usuario-remoto/main-vitrine-cliente
   Future<void> incluireservas(Reserva c) async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
@@ -68,6 +92,7 @@ Future<List<Map<String, dynamic>>> listar() async {
 
 
 
+<<<<<<< HEAD
 /*
 
 Future<List<Map<String, dynamic>>> filtrarInformacoes(String userId, String query) async {
@@ -113,6 +138,8 @@ Future<List<Map<String, dynamic>>> filtrarInformacoes(String userId, String quer
 */
 
 
+=======
+>>>>>>> usuario-remoto/main-vitrine-cliente
 Future<List<Map<String, dynamic>>> filtrarInformacoes(String query) async {
   try {
     QuerySnapshot querySnapshot = await _firestore.collection('Items').get();
@@ -150,7 +177,10 @@ Future<List<Map<String, dynamic>>> filtrarInformacoes(String query) async {
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> usuario-remoto/main-vitrine-cliente
 Future<List<Map<String, dynamic>>> listar_favoritos() async {
   User? user = FirebaseAuth.instance.currentUser;
 
@@ -164,6 +194,10 @@ Future<List<Map<String, dynamic>>> listar_favoritos() async {
 
     List<Map<String, dynamic>> docs = querySnapshot.docs.map((doc) {
       return {
+<<<<<<< HEAD
+=======
+        "docId": doc.id, 
+>>>>>>> usuario-remoto/main-vitrine-cliente
         "nomeLoja": doc['nomeLoja'],
         "imageUrl": doc['imageUrl'],
       };
@@ -182,6 +216,10 @@ Future<List<Map<String, dynamic>>> listar_favoritos() async {
 
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> usuario-remoto/main-vitrine-cliente
   Future<List<Map<String, dynamic>>> listarUsuariosLoja() async {
     try {
       QuerySnapshot querySnapshot = await _firestore
