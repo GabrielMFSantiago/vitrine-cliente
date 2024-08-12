@@ -2,5 +2,6 @@
     "editor.guides.bracketPairs": "active",
     "files.associations": {
         "*.yaml": "home-assistant"
-    }
+    },
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

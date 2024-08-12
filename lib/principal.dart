@@ -1,20 +1,13 @@
-<<<<<<< HEAD
-=======
 import 'package:cloud_firestore/cloud_firestore.dart';
->>>>>>> usuario-remoto/main-vitrine-cliente
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:vitrine/componentes/side_menu.dart';
 import 'package:vitrine/componentes/side_menu_title.dart';
-<<<<<<< HEAD
-import 'package:vitrine/pages/perfil_page.dart';
-=======
 import 'package:vitrine/pages/item_pesquisado_page.dart';
 
 import 'package:vitrine/pages/perfil_page.dart';
 import 'package:vitrine/pages/suporte_page.dart';
->>>>>>> usuario-remoto/main-vitrine-cliente
 import 'firebase_options.dart';
 import 'database.dart';
 import 'dart:async';
@@ -295,10 +288,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-<<<<<<< HEAD
-=======
 //Listagem das Lojas
->>>>>>> usuario-remoto/main-vitrine-cliente
   Widget _buildStoreList() {
     return ListView.builder(
       itemCount: usuariosLoja.length,
@@ -334,13 +324,9 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
-<<<<<<< HEAD
-
-=======
   
 
 // Listagem dos produtos pesquisados
->>>>>>> usuario-remoto/main-vitrine-cliente
   Widget _buildItemList() {
     return ListView.builder(
       itemCount: docs.length,
@@ -348,19 +334,6 @@ class _MyHomePageState extends State<MyHomePage> {
         return Column(
           children: [
             ListTile(
-<<<<<<< HEAD
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PerfilPage(
-                      nomeLoja: docs[index]['nomeitem'] ?? '',
-                      imageUrl: docs[index]['img'] ?? '',
-                    ),
-                  ),
-                );
-              },
-=======
 
             onTap: () async {
             // Primeiro, extraia os dados do documento atual.
@@ -405,7 +378,6 @@ class _MyHomePageState extends State<MyHomePage> {
           },
 
 
->>>>>>> usuario-remoto/main-vitrine-cliente
               leading: Container(
                 width: 80, // Defina o tamanho desejado aqui
                 height: 80, // Defina o tamanho desejado aqui
@@ -424,9 +396,6 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
-<<<<<<< HEAD
-=======
   
   
->>>>>>> usuario-remoto/main-vitrine-cliente
 }

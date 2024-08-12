@@ -4,7 +4,6 @@
             "outputFile": "com.cliente.vitrine.app-mergeDebugResources-25:/values-ur/values-ur.xml",
             "map": [
                 {
-<<<<<<< HEAD
                     "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\17c44a9ee9728471e88635da67cac57c\\transformed\\core-1.10.1\\res\\values-ur\\values-ur.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
@@ -22,10 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\f253648b0be692c533908993735bbd2e\\transformed\\jetified-play-services-base-18.0.1\\res\\values-ur\\values.xml",
-=======
-                    "source": "C:\\Users\\Danillo\\.gradle\\caches\\transforms-3\\f253648b0be692c533908993735bbd2e\\transformed\\jetified-play-services-base-18.0.1\\res\\values-ur\\values.xml",
->>>>>>> usuario-remoto/main-vitrine-cliente
+                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\f4c0500116144bc04cff0b0b27625b15\\transformed\\jetified-play-services-base-18.1.0\\res\\values-ur\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -42,8 +38,7 @@
                     }
                 },
                 {
-<<<<<<< HEAD
-                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\5eaba1f028ac62aaabee71faac8d9308\\transformed\\jetified-play-services-basement-18.1.0\\res\\values-ur\\values.xml",
+                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\3b8791e3eae00fcce030bc4b4be88251\\transformed\\jetified-play-services-basement-18.3.0\\res\\values-ur\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -61,9 +56,6 @@
                 },
                 {
                     "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\5d8813ca6e077bb0acb410c5d16a5490\\transformed\\browser-1.5.0\\res\\values-ur\\values-ur.xml",
-=======
-                    "source": "C:\\Users\\Danillo\\.gradle\\caches\\transforms-3\\5d8813ca6e077bb0acb410c5d16a5490\\transformed\\browser-1.5.0\\res\\values-ur\\values-ur.xml",
->>>>>>> usuario-remoto/main-vitrine-cliente
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -78,43 +70,6 @@
                         "endColumns": "100,100,110,106",
                         "endOffsets": "3111,3212,3323,3430"
                     }
-<<<<<<< HEAD
-=======
-                },
-                {
-                    "source": "C:\\Users\\Danillo\\.gradle\\caches\\transforms-3\\17c44a9ee9728471e88635da67cac57c\\transformed\\core-1.10.1\\res\\values-ur\\values-ur.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,153,255,357,461,564,662,776",
-                        "endColumns": "97,101,101,103,102,97,113,100",
-                        "endOffsets": "148,250,352,456,559,657,771,872"
-                    },
-                    "to": {
-                        "startLines": "2,3,4,5,6,7,8,31",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,153,255,357,461,564,662,3435",
-                        "endColumns": "97,101,101,103,102,97,113,100",
-                        "endOffsets": "148,250,352,456,559,657,771,3531"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Danillo\\.gradle\\caches\\transforms-3\\5eaba1f028ac62aaabee71faac8d9308\\transformed\\jetified-play-services-basement-18.1.0\\res\\values-ur\\values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "195",
-                        "endColumns": "147",
-                        "endOffsets": "342"
-                    },
-                    "to": {
-                        "startLines": "17",
-                        "startColumns": "4",
-                        "startOffsets": "1768",
-                        "endColumns": "151",
-                        "endOffsets": "1915"
-                    }
->>>>>>> usuario-remoto/main-vitrine-cliente
                 }
             ]
         }

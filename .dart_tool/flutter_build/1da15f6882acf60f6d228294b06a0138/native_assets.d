@@ -1,0 +1,1 @@
+ C:\\Users\\User\\Documents\\NOVA-GIT\\vitrine-cliente\\.dart_tool\\flutter_build\\1da15f6882acf60f6d228294b06a0138\\native_assets.yaml: 

@@ -4,18 +4,9 @@ import 'package:vitrine/pages/perfil_page.dart';
 
 class FavoritasPage extends StatefulWidget {
   FavoritasPage({Key? key}) : super(key: key);
-<<<<<<< HEAD
-  
-  @override
-  State<FavoritasPage> createState() => _FavoritasPageState();
-
-
-
-=======
 
   @override
   State<FavoritasPage> createState() => _FavoritasPageState();
->>>>>>> usuario-remoto/main-vitrine-cliente
 }
 
 class _FavoritasPageState extends State<FavoritasPage> {
@@ -23,26 +14,16 @@ class _FavoritasPageState extends State<FavoritasPage> {
   List docs = [];
   List<bool> selectedItems = List.generate(0, (_) => false);
   final TextEditingController _filtragemController = TextEditingController();
-<<<<<<< HEAD
-
-  initialize() {
-    db = Database();
-    db.initialize(); 
-=======
   List docsFiltrados = [];
 
   initialize() {
     db = Database();
     db.initialize();
->>>>>>> usuario-remoto/main-vitrine-cliente
     print('ID do Usuário Atual: ${db.getCurrentUserId()}');
     db.listar_favoritos().then((value) {
       setState(() {
         docs = value; // Atualiza a lista de registros
-<<<<<<< HEAD
-=======
         docsFiltrados = List.from(docs); // Inicializa a lista de filtrados
->>>>>>> usuario-remoto/main-vitrine-cliente
         selectedItems = List.generate(docs.length, (_) => false);
         print('Dados da Favoritas: $docs'); // Log para verificar os dados
       });
@@ -51,8 +32,6 @@ class _FavoritasPageState extends State<FavoritasPage> {
     });
   }
 
-<<<<<<< HEAD
-=======
   void _filtrandoFavoritas(String query) {
     if (query.isNotEmpty) {
       setState(() {
@@ -68,7 +47,6 @@ class _FavoritasPageState extends State<FavoritasPage> {
     }
   }
 
->>>>>>> usuario-remoto/main-vitrine-cliente
   @override
   void initState() {
     super.initState();
@@ -76,21 +54,6 @@ class _FavoritasPageState extends State<FavoritasPage> {
   }
 
   Widget _buildImageWidget(String? imageUrl) {
-<<<<<<< HEAD
-  if (imageUrl != null && imageUrl.isNotEmpty) {
-    return CircleAvatar(
-      radius: 40,
-      backgroundImage: NetworkImage(imageUrl),
-    );
-  } else {
-    // Caso a URL da imagem seja inválida, retornamos um widget de espaço reservado
-    return Placeholder(
-      fallbackHeight: 80, // Altura do espaço reservado
-      fallbackWidth: 80, // Largura do espaço reservado
-    );
-  }
-}
-=======
     if (imageUrl != null && imageUrl.isNotEmpty) {
       return CircleAvatar(
         radius: 40,
@@ -143,7 +106,6 @@ class _FavoritasPageState extends State<FavoritasPage> {
       },
     );
   }
->>>>>>> usuario-remoto/main-vitrine-cliente
 
   @override
   Widget build(BuildContext context) {
@@ -161,73 +123,17 @@ class _FavoritasPageState extends State<FavoritasPage> {
       ),
       body: Column(
         children: [
-<<<<<<< HEAD
-           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: _filtragemController,
-             // onChanged: _filtrandoTudo, // Atualiza a lista de registros de acordo com o termo de pesquisa
-=======
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: _filtragemController,
               onChanged: _filtrandoFavoritas, // Atualiza a lista de registros de acordo com o termo de pesquisa
->>>>>>> usuario-remoto/main-vitrine-cliente
               decoration: InputDecoration(
                 hintText: 'Pesquisar',
                 prefixIcon: Icon(Icons.search),
               ),
             ),
           ),
-<<<<<<< HEAD
-
-        Expanded(
-         child: docs.isNotEmpty
-          ? ListView.builder(
-              itemCount: docs.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    ListTile(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PerfilPage(
-                              nomeLoja: docs[index]['nomeLoja'] ?? 'Nome da Loja não disponível',
-                              imageUrl: docs[index]['imageUrl'] ?? '', // Passe a URL da imagem da loja
-                            ),
-                          ), 
-                        );
-                      },
-                    
-                      leading: Container(
-                        width: 80, 
-                        height: 80, 
-                        child: _buildImageWidget(docs[index]['imageUrl'] ?? ''), 
-                      ),
-                      
-                      title: Text(docs[index]['nomeLoja'] ?? 'Nome da Loja não disponível'),
-                    
-                    ),
-                    
-                    
-                    const Divider(
-                        color: Colors.grey,
-                        thickness: 0.5,
-                        height: 25,
-                      ),
-                  ],
-                );
-              },
-            )
-       
-          : Center(
-              child: Text('Ainda não há loja favorita...'),
-            ),
-        ),
-=======
           Expanded(
             child: docsFiltrados.isNotEmpty
                 ? ListView.builder(
@@ -281,7 +187,6 @@ class _FavoritasPageState extends State<FavoritasPage> {
                     child: Text('Ainda não há loja favorita...'),
                   ),
           ),
->>>>>>> usuario-remoto/main-vitrine-cliente
         ],
       ),
     );

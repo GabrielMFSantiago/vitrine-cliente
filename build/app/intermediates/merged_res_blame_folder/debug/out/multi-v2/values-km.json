@@ -4,53 +4,7 @@
             "outputFile": "com.cliente.vitrine.app-mergeDebugResources-25:/values-km/values-km.xml",
             "map": [
                 {
-<<<<<<< HEAD
-                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\17c44a9ee9728471e88635da67cac57c\\transformed\\core-1.10.1\\res\\values-km\\values-km.xml",
-=======
-                    "source": "C:\\Users\\Danillo\\.gradle\\caches\\transforms-3\\17c44a9ee9728471e88635da67cac57c\\transformed\\core-1.10.1\\res\\values-km\\values-km.xml",
->>>>>>> usuario-remoto/main-vitrine-cliente
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,150,253,351,451,552,664,776",
-                        "endColumns": "94,102,97,99,100,111,111,100",
-                        "endOffsets": "145,248,346,446,547,659,771,872"
-                    },
-                    "to": {
-                        "startLines": "2,3,4,5,6,7,8,31",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,150,253,351,451,552,664,3424",
-                        "endColumns": "94,102,97,99,100,111,111,100",
-                        "endOffsets": "145,248,346,446,547,659,771,3520"
-                    }
-                },
-                {
-<<<<<<< HEAD
-                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\5eaba1f028ac62aaabee71faac8d9308\\transformed\\jetified-play-services-basement-18.1.0\\res\\values-km\\values.xml",
-=======
-                    "source": "C:\\Users\\Danillo\\.gradle\\caches\\transforms-3\\5eaba1f028ac62aaabee71faac8d9308\\transformed\\jetified-play-services-basement-18.1.0\\res\\values-km\\values.xml",
->>>>>>> usuario-remoto/main-vitrine-cliente
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "195",
-                        "endColumns": "144",
-                        "endOffsets": "339"
-                    },
-                    "to": {
-                        "startLines": "17",
-                        "startColumns": "4",
-                        "startOffsets": "1775",
-                        "endColumns": "148",
-                        "endOffsets": "1919"
-                    }
-                },
-                {
-<<<<<<< HEAD
-                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\f253648b0be692c533908993735bbd2e\\transformed\\jetified-play-services-base-18.0.1\\res\\values-km\\values.xml",
-=======
-                    "source": "C:\\Users\\Danillo\\.gradle\\caches\\transforms-3\\f253648b0be692c533908993735bbd2e\\transformed\\jetified-play-services-base-18.0.1\\res\\values-km\\values.xml",
->>>>>>> usuario-remoto/main-vitrine-cliente
+                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\f4c0500116144bc04cff0b0b27625b15\\transformed\\jetified-play-services-base-18.1.0\\res\\values-km\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
                         "startColumns": "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
@@ -67,11 +21,41 @@
                     }
                 },
                 {
-<<<<<<< HEAD
+                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\17c44a9ee9728471e88635da67cac57c\\transformed\\core-1.10.1\\res\\values-km\\values-km.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,150,253,351,451,552,664,776",
+                        "endColumns": "94,102,97,99,100,111,111,100",
+                        "endOffsets": "145,248,346,446,547,659,771,872"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,31",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,150,253,351,451,552,664,3424",
+                        "endColumns": "94,102,97,99,100,111,111,100",
+                        "endOffsets": "145,248,346,446,547,659,771,3520"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\3b8791e3eae00fcce030bc4b4be88251\\transformed\\jetified-play-services-basement-18.3.0\\res\\values-km\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "195",
+                        "endColumns": "144",
+                        "endOffsets": "339"
+                    },
+                    "to": {
+                        "startLines": "17",
+                        "startColumns": "4",
+                        "startOffsets": "1775",
+                        "endColumns": "148",
+                        "endOffsets": "1919"
+                    }
+                },
+                {
                     "source": "C:\\Users\\User\\.gradle\\caches\\transforms-3\\5d8813ca6e077bb0acb410c5d16a5490\\transformed\\browser-1.5.0\\res\\values-km\\values-km.xml",
-=======
-                    "source": "C:\\Users\\Danillo\\.gradle\\caches\\transforms-3\\5d8813ca6e077bb0acb410c5d16a5490\\transformed\\browser-1.5.0\\res\\values-km\\values-km.xml",
->>>>>>> usuario-remoto/main-vitrine-cliente
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
